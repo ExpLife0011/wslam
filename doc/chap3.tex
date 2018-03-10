@@ -1,0 +1,25 @@
+\chapter{Architecture}
+    \section{High Level Overview}
+        The system is composed of 4 main components
+        \begin{itemize}
+            \item wslflt.sys
+            \item wslcore.dll
+            \item wslsvc.exe
+            \item wslam.exe
+        \end{itemize}
+    \section{wslflt.sys}
+    \paragraph{}
+    Wslflt.sys is minifilter driver that contains the requirued sensor for monitoring process' activity. It the components that filter disk I/O,
+    process creation/termination and thread creation/termination.
+    \paragraph{}
+    It's key components are the process filter, file filter, event dispatcher, the communication framework and the detection heuristics.
+    \section{wslcore.dll}
+    \paragraph{}
+    This dll is an abstraction of the wslflt.sys driver. It contains the communication logic between kernel-mode and user-mode and exports
+    multiple callbacks to an integrator. It's main purpose is to hide the filtering and detection logic and to provide an easy way to integrate
+    the system in a complete security solution.
+    \paragraph{}
+    \section{wslsvc.exe}
+    \paragraph{}
+    Wslsvc.exe is Windows service that integrates the previously mentioned DLL.
+    \section{wslam.exe}

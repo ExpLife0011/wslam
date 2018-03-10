@@ -1,0 +1,66 @@
+\documentclass{report}
+
+    \usepackage{titlesec}
+    \usepackage{listings}
+    \usepackage{xcolor}
+    \usepackage{titlesec}
+    \usepackage[]{biblatex}
+    \usepackage{tocloft}
+    \usepackage{hyperref}
+    \usepackage{enumerate}
+    
+    \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
+    \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+    
+    \titleformat{\chapter}{}{}{0em}{\bfseries\LARGE\ifnum\value{chapter}>0\relax\arabic{chapter}.~\fi}
+
+    \lstset{ % General setup for the package
+        belowcaptionskip=1\baselineskip,
+        breaklines=true,
+        frame=L,
+        xleftmargin=\parindent,
+        language=C++,
+        showstringspaces=false,
+        basicstyle=\footnotesize\ttfamily,
+        morekeywords={PsSetCreateProcessNotifyRoutineEx2},
+        keywordstyle=\color{blue},
+        commentstyle=\itshape\color{purple!40!black},
+        identifierstyle=\color{gray},
+        stringstyle=\color{orange}
+    }
+
+    \hypersetup{
+        colorlinks,
+        citecolor=black,
+        filecolor=black,
+        linkcolor=black,
+        urlcolor=black
+    }
+    
+    \title{Behavior Analysis and Detection of Bashware}
+    \author{Andrei Mermeze \\ email \href{mailto:andrei.mermeze@gmail.com}{andrei.mermeze@gmail.com}}
+    \date{}
+
+    \addbibresource{bibliography.bib}
+
+    \begin{document}
+    
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+
+    \include{chap1}
+    \include{chap2}
+    \include{chap3}
+    \include{chap4}
+    \include{chap5}
+    \include{chap6}
+    \include{chap7}
+    \include{chap8}
+
+    \titleformat{\chapter}{}{}{0em}{\bfseries\LARGE}
+    \nocite{*}
+    \printbibliography[heading=bibintoc, title={References}]
+
+\end{document}
