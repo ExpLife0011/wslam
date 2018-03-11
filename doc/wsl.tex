@@ -4,11 +4,11 @@
     \usepackage{listings}
     \usepackage{xcolor}
     \usepackage{titlesec}
-    \usepackage[]{biblatex}
+    \usepackage[maxbibnames=99]{biblatex}
     \usepackage{tocloft}
     \usepackage{hyperref}
     \usepackage{enumerate}
-    
+
     \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
     \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
     
@@ -38,17 +38,23 @@
     }
     
     \title{Behavior Analysis and Detection of Bashware}
-    \author{Andrei Mermeze \\ email \href{mailto:andrei.mermeze@gmail.com}{andrei.mermeze@gmail.com}}
+    \author{
+        Andrei Mermeze
+        \\ email \href{mailto:andrei.mermeze@gmail.com}{andrei.mermeze@gmail.com}
+        \\ [1cm]{\normalsize Advisor: Phd. Dragos Radu}
+    }
+    
     \date{}
 
     \addbibresource{bibliography.bib}
 
     \begin{document}
-    
+    \pagenumbering{Roman}
     \maketitle
-    \newpage
+
     \tableofcontents
-    \newpage
+
+    \pagenumbering{arabic}
 
     \include{chap1}
     \include{chap2}
@@ -61,6 +67,7 @@
 
     \titleformat{\chapter}{}{}{0em}{\bfseries\LARGE}
     \nocite{*}
+    \emergencystretch=1em
     \printbibliography[heading=bibintoc, title={References}]
 
 \end{document}

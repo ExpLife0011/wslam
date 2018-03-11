@@ -1,5 +1,6 @@
 \chapter{Architecture}
     \section{High Level Overview}
+        \paragraph{}
         The system is composed of 4 main components
         \begin{itemize}
             \item wslflt.sys
@@ -8,18 +9,32 @@
             \item wslam.exe
         \end{itemize}
     \section{wslflt.sys}
-    \paragraph{}
-    Wslflt.sys is minifilter driver that contains the requirued sensor for monitoring process' activity. It the components that filter disk I/O,
-    process creation/termination and thread creation/termination.
-    \paragraph{}
-    It's key components are the process filter, file filter, event dispatcher, the communication framework and the detection heuristics.
+        \paragraph{}
+        Wslflt.sys is C++ minifilter driver that contains the requirued sensors for monitoring process' activity. It's key components are the
+        process filter, file filter, event dispatcher, the communication framework and the detection heuristics.
+        \subsection{File Filter}
+            \paragraph{}
+            The file filter's role is to filter disk I/O.
+        \subsection{Process Filter}
+            \paragraph{}
+            The process filter is notified of process and thread creation and termination by the windows kernel.
+        \subsection{Event Dispatcher}
+        \subsection{Communication Framework}
+            \paragraph{}
+        \subsection{Heurisitcs}
+        \paragraph{}
     \section{wslcore.dll}
-    \paragraph{}
-    This dll is an abstraction of the wslflt.sys driver. It contains the communication logic between kernel-mode and user-mode and exports
-    multiple callbacks to an integrator. It's main purpose is to hide the filtering and detection logic and to provide an easy way to integrate
-    the system in a complete security solution.
-    \paragraph{}
+        \paragraph{}
+        This dll is an abstraction of the wslflt.sys driver. It contains the communication logic between kernel-mode and user-mode and exports
+        multiple callbacks to an integrator. It's main purpose is to hide the filtering and detection logic and to provide an easy way to integrate
+        the system in a complete security solution.
+        \paragraph{}
     \section{wslsvc.exe}
-    \paragraph{}
-    Wslsvc.exe is Windows service that integrates the previously mentioned DLL.
+        \paragraph{}
+        Wslsvc.exe is Windows service that integrates the previously mentioned DLL.
     \section{wslam.exe}
+        \paragraph{}
+        Wslam.exe is the GUI component of the system. It provides the user with logs about processes' actions and notifies him about detections
+        or other suspicios activity.
+        \paragraph{}
+        It is an UWP .NET application that communicates with wslsvc via TCP/IP

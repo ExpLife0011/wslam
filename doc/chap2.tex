@@ -1,8 +1,6 @@
 \chapter{Used technologies}
     \section{WDM}
-
         \subsection{Legacy Filter Drivers}
-
         \subsection{File System Legacy Filter and Minifilter Drivers}
             \paragraph{}
             A Legacy Filter driver is a kernel-mode that could attach to a device's stack. In the context of file system filtering, these
@@ -13,4 +11,8 @@
             load order no longer depends on the attach order, but on a predefined value named altitude. Minifilters are managed by FltMgr, which is
             a legacy filter driver implemented by microsoft.
     \section{C++ in Kernel Drivers}
+        \paragraph{}
+        By default, msvc does not support C++ for kernel-mode drivers.
+        \paragraph{}
+
     
