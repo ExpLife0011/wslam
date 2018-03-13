@@ -1,3 +1,1 @@
-WSL Anti-Malware
-
-Security solution for Windows Subsystem for Linux
+Behavior Analysis and Detection of Bashware
