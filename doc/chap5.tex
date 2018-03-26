@@ -7,7 +7,7 @@
         \paragraph{}
         In order to use the Test Driven Development paradigm, a whitebox unittesting framework was required. The unittest project contains
         mock definitions of kernel functions (e.g. ExAllocatePoolWithTag), and unittests for each class. Mocking kernel functions helped in
-        achieving high coverage of the kernel-code in a user-mode enviroment, thus saving development time. Moreover, these unittests can be
+        achieving high coverage of the driver code in a user-mode enviroment, thus saving development time. Moreover, these unittests can be
         easily configured to run at each solution build, making it a very reliable and easy to use continuous integration tool.
         \paragraph{}
         The other alternative was having another kernel-mode driver that would test the API exported by wslflt.sys. This is an unreliable
