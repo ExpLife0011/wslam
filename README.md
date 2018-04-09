@@ -1,3 +1,3 @@
-WSL Anti-Malware
+Behavior Analysis and Detection of Bashware
 
-Security solution for Windows Subsystem for Linux
+Thesis pdf is in doc folder
