@@ -115,6 +115,12 @@
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WslAntiMalwareCore\WslAntiMalwareCore.csproj">
+      <Project>{0a18acf1-8e3a-4e4a-b6c7-b0b674bfddb2}</Project>
+      <Name>WslAntiMalwareCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
