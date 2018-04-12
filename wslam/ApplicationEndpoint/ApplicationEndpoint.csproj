@@ -7,8 +7,8 @@
     <ProjectGuid>{50D19E69-89D8-4E72-BBA5-E2CBF3FFD1B7}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DetectionListener</RootNamespace>
-    <AssemblyName>DetectionListener</AssemblyName>
+    <RootNamespace>ApplicationEndpoint</RootNamespace>
+    <AssemblyName>ApplicationEndpoint</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
@@ -107,7 +107,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DetectionListener.cs" />
+    <Compile Include="ApplicationEndpoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,9 +8,9 @@ using Windows.Data.Xml.Dom;
 using Windows.Foundation.Diagnostics;
 using WslAntiMalwareCore;
 
-namespace DetectionListener
+namespace ApplicationEndpoint
 {
-    public sealed class DetectionListener : IBackgroundTask
+    public sealed class ApplicationEndpoint : IBackgroundTask
     {
 
         AppServiceConnection _guiConnection;
