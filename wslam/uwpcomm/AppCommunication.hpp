@@ -6,16 +6,11 @@
 
 namespace UwpComm
 {
-    class AppServiceConnection;
-
-
     class AppServiceConnection
     {
     public:
         UWPCOMM_API
-        AppServiceConnection(
-            const std::wstring& Token
-        );
+        AppServiceConnection() {}
 
         UWPCOMM_API
         void
@@ -23,12 +18,8 @@ namespace UwpComm
             const std::wstring& ImageFileName
         );
 
-
         UWPCOMM_API
-        ~AppServiceConnection();
-
-    private:
-        void* _AppService;
+        ~AppServiceConnection() {}
     };
 
 }

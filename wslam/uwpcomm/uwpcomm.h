@@ -7,8 +7,8 @@
 #define UWPCOMM_API __declspec(dllimport)
 #endif // UWPCOMM_EXPORTS
 
-#define PACKAGE_FAMILY_NAME L"a13c5e57-4d88-41bb-8c5b-d48228a13278_pt6twq797941g"
-#define APPSERVICE_NAME L"com.amermeze.wslam.applicationendpoint"
+#define PACKAGE_FAMILY_NAME L"WslAntiMalware_pt6twq797941g"
+#define APPSERVICE_NAME L"com.wsl.antimalware.notifications"
 #define TOKEN   L"WSLAMSS"
 
 #endif // _UWPCOMM_H_

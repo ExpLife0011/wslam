@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{50D19E69-89D8-4E72-BBA5-E2CBF3FFD1B7}</ProjectGuid>
+    <ProjectGuid>{B50B7174-E6B4-439E-8941-5C77E86A21D4}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ApplicationEndpoint</RootNamespace>
-    <AssemblyName>ApplicationEndpoint</AssemblyName>
+    <RootNamespace>WslAntiMalware</RootNamespace>
+    <AssemblyName>BackgroundNotificationsListener</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
@@ -107,19 +107,13 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApplicationEndpoint.cs" />
+    <Compile Include="NotificationsListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WslAntiMalwareCore\WslAntiMalwareCore.csproj">
-      <Project>{0a18acf1-8e3a-4e4a-b6c7-b0b674bfddb2}</Project>
-      <Name>WslAntiMalwareCore</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

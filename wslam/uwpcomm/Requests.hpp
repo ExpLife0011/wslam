@@ -11,12 +11,9 @@
 
 namespace UwpComm
 {
-    enum class RequestIds : int
+    enum class NotificationId : int
     {
-        HandShake,
-        MonitoringStarted,
-        MonitoringStopped,
-        Detection
+        Detection,
     };
 }
 #endif // _REQUESTS_HPP_
