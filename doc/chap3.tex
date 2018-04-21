@@ -1,40 +1,25 @@
-\chapter{Architecture}
-    \section{High Level Overview}
-        \paragraph{}
-        The system is composed of 4 main components
-        \begin{itemize}
-            \item wslflt.sys
-            \item wslcore.dll
-            \item wslsvc.exe
-            \item wslam.exe
-        \end{itemize}
-    \section{wslflt.sys}
-        \paragraph{}
-        Wslflt.sys is C++ minifilter driver that contains the requirued sensors for monitoring process' activity. It's key components are the
-        process filter, file filter, event dispatcher, the communication framework and the detection heuristics.
-        \subsection{File Filter}
+\chapter{Used technologies}
+    \section{WDM}
+        \subsection{Legacy Filter Drivers}
+        \subsection{File System Legacy Filter and Minifilter Drivers}
             \paragraph{}
-            The file filter's role is to filter disk I/O.
-        \subsection{Process Filter}
+            A Legacy Filter driver is a kernel-mode that could attach to a device's stack. In the context of file system filtering, these
+            filter drivers could intercept file system I/O operations. Developing legacy filter drivers was quite troublesome and led to 
+            many incompatibilities between filter drivers. This is one of the reasons for which minifilter drivers were added.
             \paragraph{}
-            The process filter is notified of process and thread creation and termination by the windows kernel.
-        \subsection{Event Dispatcher}
-        \subsection{Communication Framework}
-            \paragraph{}
-        \subsection{Heurisitcs}
+            Minifilters have the same abilities as file system legacy filter drivers, but they are easier to develop and are overall safer. Their
+            load order no longer depends on the attach order, but on a predefined value named altitude. Minifilters are managed by FltMgr, which is
+            a legacy filter driver implemented by microsoft.
+    \section{C++ in Kernel Drivers}
         \paragraph{}
-    \section{wslcore.dll}
+        By default, msvc does not support C++ for kernel-mode drivers.
         \paragraph{}
-        This dll is an abstraction of the wslflt.sys driver. It contains the communication logic between kernel-mode and user-mode and exports
-        multiple callbacks to an integrator. It's main purpose is to hide the filtering and detection logic and to provide an easy way to integrate
-        the system in a complete security solution.
+    \section{.NET Framework}
         \paragraph{}
-    \section{wslsvc.exe}
+    \section{WCF}
         \paragraph{}
-        Wslsvc.exe is Windows service that integrates the previously mentioned DLL.
-    \section{wslam.exe}
+    \section{UWP}
         \paragraph{}
-        Wslam.exe is the GUI component of the system. It provides the user with logs about processes' actions and notifies him about detections
-        or other suspicios activity.
-        \paragraph{}
-        It is an UWP .NET application that communicates with wslsvc via TCP/IP
+
+
+    

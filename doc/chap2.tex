@@ -1,18 +1,22 @@
-\chapter{Used technologies}
-    \section{WDM}
-        \subsection{Legacy Filter Drivers}
-        \subsection{File System Legacy Filter and Minifilter Drivers}
-            \paragraph{}
-            A Legacy Filter driver is a kernel-mode that could attach to a device's stack. In the context of file system filtering, these
-            filter drivers could intercept file system I/O operations. Developing legacy filter drivers was quite troublesome and led to 
-            many incompatibilities between filter drivers. This is one of the reasons for which minifilter drivers were added.
-            \paragraph{}
-            Minifilters have the same abilities as file system legacy filter drivers, but they are easier to develop and are overall safer. Their
-            load order no longer depends on the attach order, but on a predefined value named altitude. Minifilters are managed by FltMgr, which is
-            a legacy filter driver implemented by microsoft.
-    \section{C++ in Kernel Drivers}
-        \paragraph{}
-        By default, msvc does not support C++ for kernel-mode drivers.
-        \paragraph{}
-
+\chapter{State of the art}
+    \section{Windows Subsystem for Linux}
+        \subsection{WSL Main Components}
+            \begin{figure}[H]
+                \includegraphics[width=\linewidth]{img/wsl_components.png}
+                \caption{WSL Compoents \protect\cite{wslcomponents}}
+                \label{fig:wsl_components}
+            \end{figure}
+        \subsection{WSL File System}
+            \begin{figure}[H]
+                \includegraphics[width=\linewidth]{img/wsl_file_system.png}
+                \caption{WSL File System \protect\cite{wslfilesystem}}
+                \label{fig:wsl_file_system}
+            \end{figure}
+    \section{Linux Malware}
+        \subsection{Process Injection}
+        \subsection{Process Hollowing}
+    \section{Bashware and Exploits}
+        \subsection{execve exploit}
+        \subsection{File Infector}
+    \section{Behavioral Detection}
     

@@ -1,23 +1,12 @@
-\chapter{State of the art}
-    \section{Windows Subsystem for Linux}
-        \subsection{WSL Main Components}
-            \begin{figure}[H]
-                \includegraphics[width=\linewidth]{img/wsl_components.png}
-                \caption{WSL Compoents \protect\cite{wslcomponents}}
-                \label{fig:wsl_components}
-            \end{figure}
-        \subsection{WSL File System}
-            \begin{figure}[H]
-                \includegraphics[width=\linewidth]{img/wsl_file_system.png}
-                \caption{WSL File System \protect\cite{wslfilesystem}}
-                \label{fig:wsl_file_system}
-            \end{figure}
-            
-    \section{Linux Malware}
-        \subsection{Process Injection}
-        \subsection{Process Hollowing}
-    \section{Bashware and Exploits}
-        \subsection{execve exploit}
-        \subsection{File Infector}
-    \section{Behavioral Detection}
-    
+\chapter{Introduction}
+    \section{Motivation}
+        \paragraph{} With the release of Windows Subsystem for Linux (WSL). Consisting of two new kernel-mode drivers, lxcore.sys and lxss.sys, that implement
+        more than 100 linux system calls, it opened an attack surface that was not covered by monitoring tools or AV vendors.
+    \section{Objectives}
+        \paragraph{} The main objective is to provide a partial solution to this new security problem. It should defend a system from bashware, suspicious
+        interraction between WSL processes and Windows processes and to provide system administrators with enough logs to properly respond to
+        incidents, while not disrupting the user experience.
+    \section{Personal Contributions}
+        \paragraph{}
+    \section{Thesis Outline}
+        \paragraph{}
