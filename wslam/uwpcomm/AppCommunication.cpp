@@ -34,7 +34,7 @@ void UwpComm::AppServiceConnection::NotifyDetection(
     auto openStatus = appServiceConnection.OpenAsync().get();
     if (openStatus != winrt::Windows::ApplicationModel::AppService::AppServiceConnectionStatus::Success)
     {
-        std::cout << "connect error " << (int)openStatus << std::endl;
+        std::cout << "connect error " << (int)openStatus << " " << ::GetLastError() << std::endl;
         return;
     }
 
