@@ -3,6 +3,24 @@
         \begin{lstlisting}
             PsSetCreateProcessNotifyRoutineEx2(a, b);
         \end{lstlisting}
+            
+    This is the most reliable way of monitoring and blocking potentially malicious linux applications. Unlike a user-mode hooking framework
+    approach, using a windows driver provides mechanisms of monitoring that cannot be bypassed or tampered with by the monitored processes, making
+    it a very reliable and secure approach.\\
+    The best choice for achieving reliable file system i/o and process monitoring is a file system minifilter driver.
+    
+    \section{File System Filtering}
+    Windows file system i/o requests are contained in IRPs (i/o request packets). The minifilter driver registers its callback with the
+    filesystem by calling FltRegisterFilter and passing an array of callbacks. The main difference between filtering i/o requests issued by win32
+    processes and linux processes is that, for linux processes, the PreviousMode is KernelMode, because IRPs are issued by the kernel. This means
+    that unlike the usual filtering algorithm, which skips  KernelRequests, now we must process and check that the Requestor PID is not system.
+
+    \section{Process Filtering}
+    In order to receive process creation and termination notifications, the driver must register a callback with
+    PsSetCreateProcessNotifyRoutineEx2. This callback will be called for both win32 processes and pico processes. To identify a WSL process,
+    the driver must call ZwQueryInformationProcess with SubsystemInformationTypeWSL information type on the process' handle and check that the
+    subsystem type is SubsystemInformationTypeWSL.
+    
     \section{File Filtering}
     \section{Communication}
     \section{Detection Logic}

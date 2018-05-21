@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Driver Files">
+      <UniqueIdentifier>{8E41214B-6785-4CFE-B992-037D68949A14}</UniqueIdentifier>
+      <Extensions>inf;inv;inx;mof;mc;</Extensions>
+    </Filter>
+    <Filter Include="CPP Support">
+      <UniqueIdentifier>{73e33911-3f83-4aac-afe4-3fa5f5327438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Memory">
+      <UniqueIdentifier>{4d82791c-e1b7-4e9a-b21e-e68af8d41118}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Filters">
+      <UniqueIdentifier>{16ba2dad-701d-4c2b-a93c-015faf1b5a6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Filters\FileFilter">
+      <UniqueIdentifier>{fb22821d-d4ba-4bda-9754-d262754304a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Filters\ProcessFilter">
+      <UniqueIdentifier>{27ee565d-d0a7-4293-bea7-f5f37bedfe8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{9e2edf41-fc7c-4575-a4e7-4919c6be4f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Filters">
+      <UniqueIdentifier>{37876a93-6246-4374-a950-971f79e81c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Filters\FileFilter">
+      <UniqueIdentifier>{6c4638fe-a1fe-4324-aa5d-67f4a16bdbec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Filters\ProcessFilter">
+      <UniqueIdentifier>{e9c8f027-e0ac-4a1c-8605-e34d595d05b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{42952c4c-53fc-448b-bb5f-684d76dc4df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{ff554d56-381f-4f9a-8cb1-16e2ab58ae89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Infrastructure">
+      <UniqueIdentifier>{ab8df7f9-a6b4-4138-b258-ea9501e1bcca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Inf Include="wslflt.inf">
+      <Filter>Driver Files</Filter>
+    </Inf>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="wslflt.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="wslflt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cppmemoryoperators.cpp">
+      <Filter>CPP Support</Filter>
+    </ClCompile>
+    <ClCompile Include="crtsection.cpp">
+      <Filter>CPP Support</Filter>
+    </ClCompile>
+    <ClCompile Include="purecall.cpp">
+      <Filter>CPP Support</Filter>
+    </ClCompile>
+    <ClCompile Include="staticclassessupport.cpp">
+      <Filter>CPP Support</Filter>
+    </ClCompile>
+    <ClCompile Include="WslFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Context.cpp">
+      <Filter>Source Files\Filters\FileFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="ContextBuilder.cpp">
+      <Filter>Source Files\Filters\FileFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="FileFilter.cpp">
+      <Filter>Source Files\Filters\FileFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicFunctions.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="FilterUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessFilter.cpp">
+      <Filter>Source Files\Filters\ProcessFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="Refcounter.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cppmemoryoperators.h">
+      <Filter>CPP Support</Filter>
+    </ClInclude>
+    <ClInclude Include="crtsection.h">
+      <Filter>CPP Support</Filter>
+    </ClInclude>
+    <ClInclude Include="staticclassessupport.h">
+      <Filter>CPP Support</Filter>
+    </ClInclude>
+    <ClInclude Include="WslFilter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeTraits.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterTags.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFilter.hpp">
+      <Filter>Header Files\Filters\FileFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="Context.hpp">
+      <Filter>Header Files\Filters\FileFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="ContextBuilder.hpp">
+      <Filter>Header Files\Filters\FileFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessFilter.hpp">
+      <Filter>Header Files\Filters\ProcessFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="LookasideList.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicFunctions.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterRegistration.hpp">
+      <Filter>Header Files\Filters\FileFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterUtils.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="kernelinc.h">
+      <Filter>Header Files\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="wslflt_trace.h">
+      <Filter>Header Files\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="LookasideObject.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedPointer.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Refcounter.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

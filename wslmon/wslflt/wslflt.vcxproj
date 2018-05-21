@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="wslflt.rc" />
+    <Inf Include="wslflt.inf" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{30175637-4D3D-49A1-A44E-3B4403AB6FAE}</ProjectGuid>
+    <TemplateGuid>{f2f62967-0815-4fd7-9b86-6eedcac766eb}</TemplateGuid>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <Configuration>Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">Win32</Platform>
+    <RootNamespace>wslflt</RootNamespace>
+    <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset>
+    <ConfigurationType>Driver</ConfigurationType>
+    <DriverType>WDM</DriverType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)logs\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <Link>
+      <AdditionalDependencies>fltmgr.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <ClCompile>
+      <PrecompiledHeaderOutputFile />
+      <WppPreserveExtensions>.h.hpp.c.cpp</WppPreserveExtensions>
+      <WppScanConfigurationData>$(ProjectDir)wslflt_trace.h</WppScanConfigurationData>
+      <WppAdditionalOptions>$(ProjectDir)*.hpp $(ProjectDir)*.h %(WppAdditionalOptions)</WppAdditionalOptions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <WppEnabled>true</WppEnabled>
+      <AdditionalIncludeDirectories>$(SolutionDir)wslcommon;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <FilesToPackage Include="$(TargetPath)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Context.cpp" />
+    <ClCompile Include="ContextBuilder.cpp" />
+    <ClCompile Include="cppmemoryoperators.cpp" />
+    <ClCompile Include="crtsection.cpp" />
+    <ClCompile Include="DynamicFunctions.cpp" />
+    <ClCompile Include="FileFilter.cpp" />
+    <ClCompile Include="FilterUtils.cpp" />
+    <ClCompile Include="ProcessFilter.cpp" />
+    <ClCompile Include="purecall.cpp" />
+    <ClCompile Include="Refcounter.cpp" />
+    <ClCompile Include="staticclassessupport.cpp" />
+    <ClCompile Include="WslFilter.cpp" />
+    <ClCompile Include="wslflt.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Context.hpp" />
+    <ClInclude Include="ContextBuilder.hpp" />
+    <ClInclude Include="cppmemoryoperators.h" />
+    <ClInclude Include="crtsection.h" />
+    <ClInclude Include="DynamicFunctions.hpp" />
+    <ClInclude Include="FileFilter.hpp" />
+    <ClInclude Include="FilterRegistration.hpp" />
+    <ClInclude Include="FilterTags.hpp" />
+    <ClInclude Include="FilterUtils.hpp" />
+    <ClInclude Include="kernelinc.h" />
+    <ClInclude Include="LookasideList.hpp" />
+    <ClInclude Include="LookasideObject.hpp" />
+    <ClInclude Include="ProcessFilter.hpp" />
+    <ClInclude Include="Refcounter.hpp" />
+    <ClInclude Include="SharedPointer.hpp" />
+    <ClInclude Include="staticclassessupport.h" />
+    <ClInclude Include="TypeTraits.hpp" />
+    <ClInclude Include="WslFilter.hpp" />
+    <ClInclude Include="wslflt_trace.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

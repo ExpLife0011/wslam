@@ -1,4 +1,15 @@
 \chapter{Heuristics and Detection Algorithms}
     \section{Privilege Escalation Detection}
+    \paragraph{}
+    When an unprivilleged process needs to start a privilleged process, it sends a request to svchost, which shows the User Account Control pop-up,
+    notifying the user that the process needs admin rights. If admin rights are granted by UAC, svchost starts the process. If a process already
+    is elevated, any process spawned by it will also be elevated. We can easily see that, if wsl.exe is started with admin rights, all linux
+    processes running in that WSL instance will be granted admin rights inside Windows, which would be disastrous consoidering the security
+    of the computer.
+    \paragraph{}
+    This kind of exploit can be detected easily, while not very reliable, from a kernel driver, or, more reliable, by using memory introspection
+    techniques from a hypervisor. We will cover only the first technique.\\
+    We need to check in key moments that the process' token was not tampered with. Such key moments would be when accessing files in sensitive
+    Windows paths.
     \section{File Infector Detection}
     \section{Ransomware Detection}
