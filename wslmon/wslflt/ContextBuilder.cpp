@@ -50,7 +50,7 @@ WslFlt::ContextBuilder::GetOrSetFileContext(
 
     if (STATUS_NOT_FOUND == status)
     {
-        status = ContextBuilder::BuildFileContext(PoolType,&ctx);
+        status = ContextBuilder::BuildFileContext(PoolType, &ctx);
         if (!WSL_SUCCESS(status))
         {
             WslLogError("FltAllocateContext ContextType=FLT_FILE_CONTEXT, Size=0x%x, PoolType=0x%x, Context=0x%p failed with status: 0x%x", ContextTraits<FileContext>::Size, PoolType, ctx, status);

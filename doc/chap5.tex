@@ -12,16 +12,41 @@
     \section{File System Filtering}
     Windows file system i/o requests are contained in IRPs (i/o request packets). The minifilter driver registers its callback with the
     filesystem by calling FltRegisterFilter and passing an array of callbacks. The main difference between filtering i/o requests issued by win32
-    processes and linux processes is that, for linux processes, the PreviousMode is KernelMode, because IRPs are issued by the kernel. This means
-    that unlike the usual filtering algorithm, which skips  KernelRequests, now we must process and check that the Requestor PID is not system.
+    processes and linux processes is that, for linux processes, the RequestorMode is KernelMode, because IRPs are issued by the kernel. This means
+    that unlike the usual filtering algorithm, which skips KernelRequests, now we must process and check that the Requestor PID is not system.
 
-    \section{Process Filtering}
-    In order to receive process creation and termination notifications, the driver must register a callback with
-    PsSetCreateProcessNotifyRoutineEx2. This callback will be called for both win32 processes and pico processes. To identify a WSL process,
-    the driver must call ZwQueryInformationProcess with SubsystemInformationTypeWSL information type on the process' handle and check that the
-    subsystem type is SubsystemInformationTypeWSL.
+    \paragraph{}
+    When filtering file system operations, we are mostly interested in 2 fields of the FLT\textunderscore CALLBACK\textunderscore DATA structure,
+    while the FILE\textunderscore OBJECT is taken from the FLT\textunderscore RELATED\textunderscore OBJECTS structure.
+
+    \begin{verbatim}
+0: kd> dt fltmgr!_FLT_CALLBACK_DATA
+...
+0x10 Iopb         : Ptr64 _FLT_IO_PARAMETER_BLOCK
+...
+0x50 RequestorMode: Char
+
+0: kd> dt fltmgr!_FLT_RELATED_OBJECTS
+...
+0x20 FileObject   : Ptr64 _FILE_OBJECT
+...
+    \end{verbatim}
+
+    \paragraph{}
     
-    \section{File Filtering}
+
+    \section{Process Monitoring}
+        \paragraph{}
+        Process monitorig refers to getting synchronous notifications on both process creation and process termination in order to keep track
+        of the currently active processes and process hierarchy.
+
+        \paragraph{}
+        In order to receive these notifications, the driver must register a callback with PsSetCreateProcessNotifyRoutineEx2. This callback will
+        be called for both win32 processes and pico processes. To identify a WSL process, the driver must call ZwQueryInformationProcess with
+        SubsystemInformationTypeWSL information type on the process' handle and check that the subsystem type is SubsystemInformationTypeWSL.
+    
     \section{Communication}
-    \section{Detection Logic}
+
+    \section{Detection Flow}
+
     \section{Scoring Engine}

@@ -1,25 +1,55 @@
 \chapter{Used technologies}
-    \section{WDM}
-        \subsection{Legacy Filter Drivers}
-        \subsection{File System Legacy Filter and Minifilter Drivers}
-            \paragraph{}
-            A Legacy Filter driver is a kernel-mode that could attach to a device's stack. In the context of file system filtering, these
-            filter drivers could intercept file system I/O operations. Developing legacy filter drivers was quite troublesome and led to 
-            many incompatibilities between filter drivers. This is one of the reasons for which minifilter drivers were added.
-            \paragraph{}
-            Minifilters have the same abilities as file system legacy filter drivers, but they are easier to develop and are overall safer. Their
-            load order no longer depends on the attach order, but on a predefined value named altitude. Minifilters are managed by FltMgr, which is
-            a legacy filter driver implemented by microsoft.
+    \section{File System Legacy Filter and Minifilter Drivers}
+        \paragraph{}
+        A Legacy Filter driver is a kernel-mode that could attach to a device's stack. In the context of file system filtering, these
+        filter drivers could intercept file system I/O operations. Developing legacy filter drivers was quite troublesome and led to 
+        many incompatibilities between filter drivers. This is one of the reasons for which minifilter drivers were added.
+        
+        \paragraph{}
+        Minifilters have the same abilities as file system legacy filter drivers, but they are easier to develop and are overall safer. Their
+        load order no longer depends on the attach order, but on a predefined value named altitude. Minifilters are managed by FltMgr, which is
+        a legacy filter driver implemented by Microsoft.
+
+        \paragraph{}
+        I have used this technology for the core component of the developed application, which had to filter file system operations as well
+        as process creation and termination. All of this information can't be reliably be acquired from a user mode application, so a minifilter
+        driver was the only choice.
+
     \section{C++ in Kernel Drivers}
         \paragraph{}
-        By default, msvc does not support C++ for kernel-mode drivers.
+        C++ has the advantage of being easy to use in developing coherent, object-oriented, robust and safe applications. However, msvc compiler
+        does not, by default, support c++ in kernel drivers.
+
         \paragraph{}
+        Firstly, in order to support global initializers, we need to define two sections, ".CRT\$XCA" and ".CRT\$XCZ". Between these two
+        sections all pointers to global initializers are held.
+
+        \paragraph{}
+        Secondly, In order to support static object initialization, we need iterate through the list of global initializers and call each
+        constructor in the DriverEntry function, and call the destructors during driver unload.
+
+        \paragraph{}
+        Thirdly, we need to define the global new and delete operators.
+
+        \paragraph{}
+        Lastly, we need to implement an the \textunderscore purecall() which will be called whenever a pure virtual function is called. Microsoft's implementation
+        of this function causes the program to immediately terminate if there is no exception handler for it.
+
     \section{.NET Framework}
         \paragraph{}
-    \section{WCF}
+        I have used .NET Framework for the integration project, both for the system service and the GUI application. The GUI was developed with
+        the help of Windows Presentation Foundation (WPF), with the interface designed using Extensible Application Markup Language (XAML), and
+        the communication between the service and GUI was done through Windows Communication foundation (WCF), more exactly, through the
+        net.tcp protocol. WCF was particulary useful as it exposes an easy to use, RPC-like comomunication interface
+
+    \section{C++/CLI}
         \paragraph{}
-    \section{UWP}
-        \paragraph{}
+        The C++ modified Common Language Infrastracutre is a c++ based language specification developed by Microsoft. It offers the possibility
+        to use both the unmanaged CRT heap (allocating and freeing objects) as well as the .NET managed heap, where objects are garbage collected
+        and don't have to be freed by the programmer. This technology was helpful because it allows an easy linkage with a C or C++ DLL and
+        provides a simple way of wrapping the dll's functions and classes in order to export them as .NET objects to .NET application, which,
+        in this case, was a service.
+
 
 
     

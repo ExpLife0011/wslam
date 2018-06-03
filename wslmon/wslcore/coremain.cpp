@@ -1,4 +1,4 @@
-#include <Windows.h>
+    #include <Windows.h>
 #include "wslcore_trace.h"
 #include "coremain.cpp.tmh"
 #include "TestHeader.hpp"

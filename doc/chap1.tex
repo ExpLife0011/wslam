@@ -1,12 +1,25 @@
 \chapter{Introduction}
     \section{Motivation}
-        \paragraph{} With the release of Windows Subsystem for Linux (WSL). Consisting of two new kernel-mode drivers, lxcore.sys and lxss.sys, that implement
-        more than 100 linux system calls, it opened an attack surface that was not covered by monitoring tools or AV vendors.
+        \paragraph{} With the release of Windows Subsystem for Linux (WSL), consisting of two new kernel-mode drivers, lxcore.sys and lxss.sys,
+        which implement more than  200 linux system calls, a new service, LxssManager, and other user mode components. This opened an attack
+        surface that was not covered by monitoring tools untill recent, and doesn't seem to be covered at all by anti-virus vendors.
+
     \section{Objectives}
-        \paragraph{} The main objective is to provide a partial solution to this new security problem. It should defend a system from bashware, suspicious
-        interraction between WSL processes and Windows processes and to provide system administrators with enough logs to properly respond to
-        incidents, while not disrupting the user experience.
+        \paragraph{} The main objective is to provide a partial solution to this new security problem. It should defend a system from bashware,
+        suspicious interraction between WSL processes and Windows processes and to provide system administrators with enough logs to properly
+        respond to incidents, while not disrupting the user experience.
+
     \section{Personal Contributions}
         \paragraph{}
+        My personal contribusions towards monitoring and detecting malicious applications that leverage Windows Subsystem for Linux (WSL) are
+        comprised of a few behavioral heuristic algorithms for detecting potentially malicious applications that target WSL, and how these
+        applications can be monitored and stopped if malicious. Moreover, I have integrated this monitoring and detection system in a application
+        in order to exemplify how easily it could be integrated by any other third party anti-virus vendor.
+        
     \section{Thesis Outline}
         \paragraph{}
+        Chapter 2 will contain the current state of WSL and how it can be used maliciously ... ceva ceva. The following four chapters will present the
+        technologies used in order to develop the application as a whole, its architecture along with some implementation details and finally the
+        testing process. Chapter 7 will be dedicated to describing the detection algorithms logic and what steps I followed in creating them, as
+        well as some implementation details and limitations. Lastly, chapter 8 will show possible directions for this project, how the current
+        monitoring solution can be improved and how it could be extended to achieve more in-depth monitoring and more accurate detection.
