@@ -57,23 +57,25 @@ Windows Subsystem for Linux Security Behavioral Analysis Malware Bashware Detect
 \section{Introduction}
 Windows Subsystem for Linux was first released in the annniversary update and it provides a way of executing Linux ELF 64 bit binaries on
 native Windows 10. Since WSL is not a virtualization based system, the Linux processes running in it can access any resource on the computer,
-making it a dangerous threat until a AV Solutions are updated to support this new type of processes.\\
+making it a dangerous threat until a AV Solutions are updated to support this new type of processes.
 
 \section{Overview of WSL}
- 
+    Windows Subsystem for Linux is a new and complex component in Windows that implements a lot of new functionality (in syscalls), parsing
+    (ELF files parsing) and is based existing Windows technologies, like pico providers and pico processes.
+
     \subsection{Minimal Processes and Pico Processes}
     A minimal process has a parent, protection level, name and security token. It has no initial thread, no process enviroment-block (PEB),
     no ntdll, and its address space is empty. Its threads are called "minimal threads", and, similarly to minimal processes, they have no
     thread enviroment block (TEB). A pico process is a minimal process, but it has an associated pico provider, which handles the system calls,
-    exceptions, pico process or threads creation and termination.\\
+    exceptions, pico process or threads creation and termination.
 
-\subsection{Pico Providers}
+    \subsection{Pico Providers}
     A pico provider is a kernel driver that implements the required functionalities to handle pico process events. Registering as a pico provider
     is done by calling the PsRegisterPicoProvider API, however, calling this API requires that the PspPicoRegistrationDisabled is set to FALSE.
     This value is set to false before any other third party driver is loaded, therefore, at least for now, it is not possible to implement
-    custom pico providers. In order to secure pico providers, they also register with PathGuard in order to protect its syscalls. Kernel Patch
-    Protection, also known as PatchGuard, was designed to protect kernel structures from being patched. This renders the classic linux
-    monitoring solution (syscall hooking) useless, as any attempt to hook the syscalls will result in a BSOD (Blue Screen of Death).\\
+    custom pico providers. In order to secure pico providers, they also register with PathGuard in order to protect its syscalls handlers.
+    Kernel Patch Protection, also known as PatchGuard, was designed to protect kernel structures from being patched. This renders the classic
+    linux monitoring solution (syscall hooking) useless, as any attempt to hook the syscalls will result in a BSOD (Blue Screen of Death).
 
     \par{}
     Lxcore.sys does the pico provider registration in the LxInitialize function, which is called by lxss.sys in its DriverEntry.
@@ -98,8 +100,6 @@ making it a dangerous threat until a AV Solutions are updated to support this ne
     \item TmpFs - /tmp 
     \item ProcFs - /proc
 \end{itemize}
-
-
 
 \section{Exploring the Attack Surface}
     Lxcore is the core kernel-mode component of WSL that implements the Linux syscalls, multiple filesystems, and all the logic for running
@@ -282,8 +282,8 @@ making it a dangerous threat until a AV Solutions are updated to support this ne
     % We could further improve the algorithm by adding an exception mechanism, in order to allow certain operations for known fewer points to processes that are known to access certain Windows paths,
     % for example, a latex compiler that writes the compiled PDF in the user's "Documents" folder. 
 
-    \subsection{Windows Privillege Escalation}
-    Privillege escalation is a powerful exploit that is meant to elevate an unelevated process without users' consent or knowledge. It is very
+    \subsection{Windows Privilege Escalation}
+    Privilege escalation is a powerful exploit that is meant to elevate an unelevated process without users' consent or knowledge. It is very
     important to understand the elevation process in order to identify the exploit. In this section we are going to describe in detail how
     elevation is done in Windows and how we can detect the exploit.\\
 
@@ -351,6 +351,14 @@ making it a dangerous threat until a AV Solutions are updated to support this ne
     Polling the security token for every Linux process would become costly performance-wise very quickly, if the process does I/O
     intensive operations(i.e, a compiler). It is neccessary to narrow the set of actions for which we do security token registraiton, as well
     as use an efficient algorithm for matching strings against a predefined dictionary.\\
+
+    \pagebreak
+    
+    \subsection{File Infector Detection}
+    A WSL file infector would essentially inject into windows executable files, altering the code in order to deliver some malicious
+    code. Even though this can generally be prevented by software developers by signing their binaries, assuring that, if loaded, were
+    not tampered with, unsigned binaries still exist and are vulnerable to being hijacked.
+
 
 
 \begin{thebibliography}{00}

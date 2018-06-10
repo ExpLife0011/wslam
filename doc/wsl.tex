@@ -2,16 +2,18 @@
 
     \usepackage{titlesec}
     \usepackage{listings}
-    \usepackage{xcolor}
+    \usepackage[dvipsnames]{xcolor}
     \usepackage{fancyvrb}
     \usepackage{titlesec}
-    \usepackage[maxbibnames=99]{biblatex}
+    \usepackage[sorting=nty]{biblatex}
     \usepackage{tocloft}
     \usepackage{hyperref}
     \usepackage{enumerate}
     \usepackage{graphicx}
     \usepackage{float}
-    \usepackage[a4paper,left=3cm,top=1cm,right=3cm]{geometry}
+    \usepackage[a4paper,left=3cm,top=2cm,right=3cm,bottom=3cm]{geometry}
+    \usepackage{indentfirst}
+    \usepackage{placeins}
     
     \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
     \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
@@ -74,7 +76,7 @@
     \include{chap5}
     \include{chap6}
     \include{chap7}
-    % \include{chap8}
+    \include{chap8}
     \include{chap9}
 
     \titleformat{\chapter}{}{}{0em}{\bfseries\LARGE}

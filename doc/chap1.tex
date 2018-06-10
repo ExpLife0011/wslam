@@ -1,25 +1,50 @@
 \chapter{Introduction}
+    With the release of Windows Subsystem for Linux (WSL) in the "Redstone 1" version of Windows 10, consisting of two new kernel-mode drivers,
+    lxcore.sys and lxss.sys, which implement more than  200 linux system calls, a new service, LxssManager, and other user mode components,
+    a new attack surface has been revealed, one that was not covered by monitoring tools untill recent, and doesn't seem to be covered by
+    anti-virus vendors.
+
+    WSL provides a way of executing native 64 bit Linux binaries, also known as ELF64 files, on Windows 10. Since WSL is not virtualization
+    based, the Linux processes running in WSL can access the same resources as the Windows processes, while not being monitored by existent
+    tools or anti-malware solutions.
+
     \section{Motivation}
-        \paragraph{} With the release of Windows Subsystem for Linux (WSL), consisting of two new kernel-mode drivers, lxcore.sys and lxss.sys,
-        which implement more than  200 linux system calls, a new service, LxssManager, and other user mode components. This opened an attack
-        surface that was not covered by monitoring tools untill recent, and doesn't seem to be covered at all by anti-virus vendors.
+        Seeing that currently no anti-virus vendor tried to tackle this issue and develop a security solution that could cover this new
+        complex attack surface, I have decided to do more research about WSL and try to come up with a full stack security solution that covers
+        this attack surface.
+        
+        Moreover, seeing a proof of concept of a privilege escalation exploit I had another reason to think that developing a security solution
+        for WSL was imperative.
 
     \section{Objectives}
-        \paragraph{} The main objective is to provide a partial solution to this new security problem. It should defend a system from bashware,
-        suspicious interraction between WSL processes and Windows processes and to provide system administrators with enough logs to properly
-        respond to incidents, while not disrupting the user experience.
+        The main objective is to provide a partial solution to this new security problem. It should defend a system from bashware,
+        suspicious interaction between WSL processes and Windows processes and to provide system administrators with enough logs to properly
+        respond to incidents, while not disrupting the user experience. The monitoring and detection system had to be self contained in
+        a software development kit (SDK), in order to be easily integrable by any third party AV vendors.
 
     \section{Personal Contributions}
-        \paragraph{}
-        My personal contribusions towards monitoring and detecting malicious applications that leverage Windows Subsystem for Linux (WSL) are
-        comprised of a few behavioral heuristic algorithms for detecting potentially malicious applications that target WSL, and how these
-        applications can be monitored and stopped if malicious. Moreover, I have integrated this monitoring and detection system in a application
-        in order to exemplify how easily it could be integrated by any other third party anti-virus vendor.
+        My personal contributions towards monitoring and detecting malicious applications that leverage WSL are comprised of a few behavioral
+        heuristic algorithms for detecting potentially malicious applications that target WSL, techniques for monitoring Linux applications
+        and stopping potentially malicious processes.
+
+        Another personal contribution would be the discovery of a local denial of service attack that leverages an access violation vulnerability
+        in lxcore.sys.
+
+        Moreover, I have integrated this SDK in an application in order to exemplify real world usage and integration of the designed
+        system. 
+        %Moreover, to exemplify the usage and integration of the designed system, I have integrated this SDK in an application
         
     \section{Thesis Outline}
-        \paragraph{}
-        Chapter 2 will contain the current state of WSL and how it can be used maliciously ... ceva ceva. The following four chapters will present the
-        technologies used in order to develop the application as a whole, its architecture along with some implementation details and finally the
-        testing process. Chapter 7 will be dedicated to describing the detection algorithms logic and what steps I followed in creating them, as
-        well as some implementation details and limitations. Lastly, chapter 8 will show possible directions for this project, how the current
-        monitoring solution can be improved and how it could be extended to achieve more in-depth monitoring and more accurate detection.
+        The thesis can be divided in four main parts. The first part consisting of chapter 2 will contain the current state of WSL and how it can
+        be used to run malicious programs, how it can be used to bypass monitoring tools and anti-malware solutions and explain some exploits
+        that target WSL.
+
+        The second part, ranging from chapter 3 to chapter 7, presents the technologies and the reasons why they were used in order to
+        develop the application as a whole, its architecture along with some implementation details and finally the testing process.
+
+        The third part consists of chapter 7 and will be dedicated to describing the detection algorithms logic and what steps I followed in
+        creating them, as well as some implementation details and limitations.
+
+        Lastly, chapter 8 will show possible developement directions for this project, how the current monitoring solution can be improved and
+        how it could be extended to achieve more in-depth monitoring and more accurate detection.
+        

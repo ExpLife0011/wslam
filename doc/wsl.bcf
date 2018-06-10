@@ -91,7 +91,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>99</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
@@ -1923,10 +1923,13 @@
     <bcf:datasource type="file" datatype="bibtex">bibliography.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">wslcomponents</bcf:citekey>
-    <bcf:citekey order="2">wslfilesystem</bcf:citekey>
-    <bcf:citekey order="3">whql</bcf:citekey>
-    <bcf:citekey order="4">fdts</bcf:citekey>
+    <bcf:citekey order="1">WindowsInternals</bcf:citekey>
+    <bcf:citekey order="2">WindowsInternals</bcf:citekey>
+    <bcf:citekey order="3">Bluehat2016AI</bcf:citekey>
+    <bcf:citekey order="4">TheArtOfMemoryForensics</bcf:citekey>
+    <bcf:citekey order="5">ieeeproc2007</bcf:citekey>
+    <bcf:citekey order="6">execve</bcf:citekey>
+    <bcf:citekey order="7">ASADMATT</bcf:citekey>
     <bcf:citekey order="0">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->

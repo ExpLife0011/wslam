@@ -1,0 +1,54 @@
+\chapter{Possible improvements}
+    This being a partial and basic solution to the problem, there are many improvements that can be made, for functional aspects like detection,
+    and monitoring capabilities as well as for non-functinoal aspects, like performance, usability and overall robustness of the application.
+
+    \section{Performance}
+        There are multiple components that could be further optimized, for example, as of current implementation, the process collector is
+        a doubly linked list, which is very inefficient for lookups (O(n) complexity). A more efficient implementation would be a resizable hash
+        table using quadratic or lilnear probing. Another example of a component that needs optimization is the dictionary used to match paths
+        for which we recheck the security token. A better implementation would use a compressed trie and aho corrasick algorithm for matching
+        the path.
+
+        Another performance improvement would be to not rematch the path for the same opened file each time we encounter it, but to cache
+        the results in a minifilter define structure called "context", which can be attached to any filter manager object (i.e. file object, 
+        volume, instance, etc.).
+
+    \section{Detection}
+        Currently, only privilege escalation is covered and, partially, file infectors. A very important type of malware that should be covered
+        is ransomware. Ransomware is a type of malware that encrypts files and asks for a ransom, usually in the form of cryptocurency, in order
+        to decrypt the user's files.
+
+        \paragraph{}
+        Moreover, detection could be improved by integrating next-gen anti-virus features, like AI based detection. Multiple solutions are
+        possible and should be investigated, for example Markov Model and Markov Chains or Recurent Neural Networks. These could prove extremely
+        efficient because most of the complexity is in the training of the model, while using the model in order to identify malicious actions
+        would just follow a simple linear algorithm.
+
+        \paragraph{}
+        Finally, in order to more reliably and efficiently detect exploits in general, especially kernel exploits, memory introspection
+        techniques could be implemented at hypervisor level. For example, privilege escalation could by detecting by hooking memory access
+        at process security tokens and making use of Extended Page Tables (EPT).
+        
+    \section{Reverting malicious actions}
+        In case of behavioral detection, a process could do some malicious actions before being detected. For example, a ransomware may actually
+        encrypt some files or parts of some files before being stopped by the anti-virus solution. In this case, it would be needed to store all
+        permanent actions (i.e. file delete) and revert them when and if the process is detected.
+
+    \section{Network Filtering}
+        A network filter kernel-mode driver is required in order to monitor and report suspicious network activity inside WSL. For example, such
+        a component could possibly detect reverse shell behavior.
+
+    \section{User-Mode Hooking Framework}
+        In order to obtain more granular monitoring capabilities, a function hooking framework is required. The ability of synchronously monitoring
+        specific API usage opens up a range of possibilities, from exploit detection to syscall graph based detection heuristics.
+        In order to load a shared library into any Linux pico process, an entry with the path to the library must be added into the ld.so.conf. Since
+        any process with root privilleges (inside the linux system) can update the said config file, we must protect it from a kernel driver, so that
+        we are sure that our shared library isn't removed. This can be done by filtering IRP\textunderscore MJ\textunderscore WRITE operations on that
+        file and readding the entry if removed.
+        
+        When loaded in a linux process, the library hooks the functions we want to monitor (i.e. ptrace, open) and synchronously notifies a 
+        service via local sockets about every hooked function call, informing the service about exploitation intent and failing the function call
+        if needed.
+
+        We consider this method unreliable against smarter bashware that actively checks and avoids hooked functions, and possibly completely useless
+        starting with Windows RS5 if executable memory can't be allocated anymore.

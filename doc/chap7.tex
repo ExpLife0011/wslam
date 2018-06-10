@@ -1,7 +1,9 @@
 \chapter{Heuristics and Detection Algorithms}
+    The gathered information about a process' behavior is used by heuristic algorithms to identify potentially malicious activity. As the name
+    implies, these algorithms are not 100\% accurate and can result in false positives as well as false negatives. However, combining multiple
+    heuristic detection algorithms has been proven to be an efficient detection technique.
+
     \section{Privilege Escalation Detection}
-        
-        \paragraph{}
         Privilege escalation is a type of exploit that elevates a running process or starts an elevated process while bypassing operating system's
         security or user notification mechanisms (eg. User Account Control on Windows). In order to correctly identify the exploit it is essential
         to understand how elevation works on Windows. In this section I am going to go into detial about how windows elevation works and the
@@ -14,7 +16,7 @@
             \item request administrator rights at process start via manifest
             \item from a privileged process by simply calling CreateProcess
         \end{itemize}
-        However, there is no legitimate way to legitimately elevate an already running process.
+        However, there is no way to legitimately elevate an already running process.
 
         \paragraph{}
         In order for a process with no admin rights to start an elevated process, it has to send a request to svchost, which shows the User Account
@@ -49,16 +51,18 @@
         implementaion for a function that takes a process handle and returns its current elevation status.
 
         \begin{Verbatim}[fontsize=\small, commandchars=\\\{\}]
-ZwOpenProcessTokenEx(\textcolor{darkgray}{processHandle}, \textcolor{red}{GENERIC_READ}, \textcolor{red}{OBJ_KERNEL_HANDLE}, &token);
-ZwQueryInformationToken(token, TokenElevation, &tokenElevation, \textcolor{blue}{sizeof}(tokenElevation),
-                        &returnLength);
+ZwOpenProcessTokenEx(\textcolor{darkgray}{processHandle}, \textcolor{magenta}{GENERIC_READ}, \textcolor{magenta}{OBJ_KERNEL_HANDLE}, &token);
+ZwQueryInformationToken(token, \textcolor{Apricot}{TokenElevation}, &tokenElevation,
+                        \textcolor{blue}{sizeof}(tokenElevation), &returnLength);
+                        
 \textcolor{blue}{return} tokenElevation.TokenIsElevated;
         \end{Verbatim}
 
         \paragraph{}
         Seeing how execve exploit works, it is clearly obvious that while this method works for the most basic case, it will not be enough for an
         exploit that elevates an already running process. Therefore, we need to check that the security token was not tampered with whenever we
-        suspect that the process might be doing something potentially malicious. For example, any file operation done in the \%SystemRoot\% directory.
+        suspect that the process might be doing something potentially malicious. For example, any file operation done in the \%SystemRoot\%
+        directory.
 
         At this point, it's easy to see several issues:\\
 
@@ -71,9 +75,31 @@ ZwQueryInformationToken(token, TokenElevation, &tokenElevation, \textcolor{blue}
         Further, I will explain how I have tackled these issues and enhanced the algorithm.
 
         \paragraph{}
+        In order to detect if a process was maliciously elevated after it was started, we need to keep track of monitored active processes in the
+        called process collector, storing their initial elevation status. If the process was initially not elevated, it should never become
+        elevated.
+
+        Whenever a monitored process issues file operations for files in sensitive locations (i.e. C:\textbackslash Windows), we will recheck
+        the security token with the described algorithm. If the new token query reveals that the process is elevated, and initially it was not,
+        then the process should be detected and stopped.
+
+        \pagebreak
+
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=310px,keepaspectratio]{img/privilege_escalation_detection_diagram.png}
+            \caption{privillege escalation detection diagram}
+            \label{fig:privilege_escalation_detection_diagram}
+        \end{figure}
+
         
+        A more detailed explanation for the diagram can be found below:
 
-
+        \begin{enumerate}
+            \item for any IRP filtered by the file filter we get the process from the collector
+            \item we check if the process was elevated since it was started
+            \item we kill the process if the process was elevated
+        \end{enumerate}
 
     \section{File Infectors and Droppers Detection}
         \paragraph{}
@@ -85,11 +111,11 @@ ZwQueryInformationToken(token, TokenElevation, &tokenElevation, \textcolor{blue}
         These are relatively simple to detect, as linux processes would have no reason to create or modify windows executables. The more
         complicated case is when a linux process starts a windows process to carry out the potentially malicious actions on behalf of the linux
         process. Untill now, there haven't been observed any WSL applications interact with windows processes it is still not clear how to
-        classify this behavior. For now, untill the market evolves (if it does), the safer decision would be to consider windows processes
-        that are in a linux process tree (there is at least a linux process ancestor) same as linux processes. This means that whether the linux
-        process drops an executable or starts a windows process to drop it, both cases would cause a detection that kills the whole tree
-        (up to the last linux process)
+        classify this behavior. For now, untill the market evolves, the safer decision would be to treat windows processes that are in a
+        linux process tree (there is at least a linux process ancestor) same as linux processes. This means that whether the linux process
+        drops an executable or starts a windows process to drop it, both cases would cause a detection that kills the whole tree (up to the
+        last linux process).
 
         \paragraph{}
-        The relevant action a file infector does writing in windows executable files, which actually is,
-        IRP\textunderscore MJ\textunderscore WRITE in terms of file system filtering. 
+        The relevant action a file infector does writing in windows executable files, which actually is a
+        IRP\textunderscore MJ\textunderscore WRITE operation in terms of file system filtering.

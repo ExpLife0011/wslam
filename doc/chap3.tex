@@ -1,39 +1,51 @@
 \chapter{Used technologies}
-    \section{File System Legacy Filter and Minifilter Drivers}
-        \paragraph{}
-        A Legacy Filter driver is a kernel-mode that could attach to a device's stack. In the context of file system filtering, these
+    In order to develop a robust and modern application, but also an efficient and reliable monitoring and detection system, I have used various
+    technologies, ranging from low level kernel technologies to high level .NET frameworks.
+
+    \section{Minifilter Drivers}
+        A Legacy Filter driver is a kernel-mode driver that can attach to a device's stack. In the context of file system filtering, these
         filter drivers could intercept file system I/O operations. Developing legacy filter drivers was quite troublesome and led to 
         many incompatibilities between filter drivers. This is one of the reasons for which minifilter drivers were added.
         
         \paragraph{}
         Minifilters have the same abilities as file system legacy filter drivers, but they are easier to develop and are overall safer. Their
-        load order no longer depends on the attach order, but on a predefined value named altitude. Minifilters are managed by FltMgr, which is
-        a legacy filter driver implemented by Microsoft.
+        load order no longer depends on the device stack attach order, but on a predefined value named altitude. Minifilters are managed by
+        FltMgr, which is a legacy filter driver implemented by Microsoft.
 
         \paragraph{}
-        I have used this technology for the core component of the developed application, which had to filter file system operations as well
+        I have used this technology for the core component of the developed SDK, which had to filter file system operations as well
         as process creation and termination. All of this information can't be reliably be acquired from a user mode application, so a minifilter
-        driver was the only choice.
+        driver was the only reliable choice.
 
     \section{C++ in Kernel Drivers}
-        \paragraph{}
         C++ has the advantage of being easy to use in developing coherent, object-oriented, robust and safe applications. However, msvc compiler
-        does not, by default, support c++ in kernel drivers.
+        does not, by default, support C++ in kernel drivers. Therefore, I had to implement C++ support from scratch.
 
         \paragraph{}
-        Firstly, in order to support global initializers, we need to define two sections, ".CRT\$XCA" and ".CRT\$XCZ". Between these two
-        sections all pointers to global initializers are held.
+        Firstly, in order to support global initializers, we need to define two sections, ".CRT\$XCA" and ".CRT\$XCZ". All pointers to 
+        initializers reside between these two sections.
 
         \paragraph{}
         Secondly, In order to support static object initialization, we need iterate through the list of global initializers and call each
         constructor in the DriverEntry function, and call the destructors during driver unload.
 
         \paragraph{}
-        Thirdly, we need to define the global new and delete operators.
+        Thirdly, we need to define the global new and delete operators. However, since memroy allocations done in a kernel driver need to specify
+        a memory pool type and a tag, I had also overloaded the new and delete operators, in order to support two additional parameters. This
+        way, the new operator can be called as follows:
+
+        % TODO - syntax highlight.
+
+        \begin{Verbatim}
+auto ptr = new(NonPagedPoolNx, 'GAT\#') Process{arg1, arg2};
+        \end{Verbatim}
+
+        This will allocate a Process object from the non executable non paged pool with the "\#TAG" allocation tag.
+
 
         \paragraph{}
-        Lastly, we need to implement an the \textunderscore purecall() which will be called whenever a pure virtual function is called. Microsoft's implementation
-        of this function causes the program to immediately terminate if there is no exception handler for it.
+        Lastly, we need to implement the \textunderscore purecall() function, which will be called whenever a pure virtual function is called.
+        Microsoft's implementation of this function causes the program to immediately terminate if there is no exception handler for it.
 
     \section{.NET Framework}
         \paragraph{}
@@ -42,14 +54,18 @@
         the communication between the service and GUI was done through Windows Communication foundation (WCF), more exactly, through the
         net.tcp protocol. WCF was particulary useful as it exposes an easy to use, RPC-like comomunication interface
 
+        \paragraph{}
+        I decided to use .NET technology for the integration project because it was easier to design a good and easy to use GUI application and
+        communicate with it through a RPC like interface with the help of WCF. Although, this caused a problem with integration the C++ DLL that
+        provided the control API and notifications for the driver.
+
     \section{C++/CLI}
         \paragraph{}
-        The C++ modified Common Language Infrastracutre is a c++ based language specification developed by Microsoft. It offers the possibility
+        The C++ modified Common Language Infrastracutre (CLI) is a C++ based language specification developed by Microsoft. It offers the possibility
         to use both the unmanaged CRT heap (allocating and freeing objects) as well as the .NET managed heap, where objects are garbage collected
-        and don't have to be freed by the programmer. This technology was helpful because it allows an easy linkage with a C or C++ DLL and
-        provides a simple way of wrapping the dll's functions and classes in order to export them as .NET objects to .NET application, which,
-        in this case, was a service.
-
-
-
+        and don't have to be freed by the programmer.
+        
+        \paragraph{}
+        This technology was helpful because it allows an easy linkage with a C or C++ DLL and provides a simple way of wrapping the dll's
+        functions and classes in order to export them as .NET objects to .NET application, which, in this case, was a service.
     

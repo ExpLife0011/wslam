@@ -4,7 +4,7 @@
     usable and efficient product. Combining whitebox and blackbox techniques together with test driven developement paradigms throughout
     the development of a product is crucial in order to offer a high quality product.
     
-    \section{Whitebox testing framework}
+    \section{Whitebox Testing}
         \paragraph{}
         In order to use the Test Driven Development paradigm, a whitebox unittesting framework was required. The unittest project contains
         mock definitions of kernel functions (e.g. ExAllocatePoolWithTag), and unittests for each class. Mocking kernel functions helped in
@@ -17,18 +17,60 @@
         kernel dumps in order to find bugs is a much slower process compared to analysing user-mode crashes or exceptions. Also, building a
         continuous integration system around this testing framework is a lot more complicated because it involves virtual machines,
         automatiically applying OS images and re-applying them in case a BSOD occurs.
-        
-    \section{Blackbox testing}
+
         \paragraph{}
+        In the context of the minifilter driver, whitebox testcases were implemented in order to verify that the Windows kernel APIs are
+        correctly. These verifications include checks for handle leaks and correct error status handling. Moreover The driver's components
+        (i.e. file filter, process collector) are tested individually to confirm that they work correctly. Also, generic framework classes like
+        SharedPointer or LookasideObject are covered by unit tests as they are widely used throughout the project.
+    
+    \pagebreak
+
+    \section{Blackbox testing}
         Blackbox testing, both manual and automated, is the main method of attesting a product's value, usefuleness and correctness regarding
-        the users' needs. I have used blackbox techniques in order to verify both functional (i.e. detection0 and non-functional requirements
+        the users' needs. I have used blackbox techniques in order to verify both functional (i.e. detection and non-functional requirements
         (i.e. stability, security, reliability).
 
+        In order to identify memory or handle leaks, potential deadlocks, incorrect IRP handling, code integrity violation and other potential
+        bugs, all blackbox tests are run with driver verifier enabled for wslft.sys. Using the driver verifier in the testing process helped
+        in building a more robust and stable driver.
+
+        Most blackbox testcases were implemented as bash scripts running in WSL, but some more complex testcases were also implemented
+        using powershell.
+
     \section{WHQL Testing}
-        \paragraph{}
-        Windows Hardware Quality Lab\cite{whql} tests involve running various testcases regarding Disk I/O, code integrity checks, pipes I/O, transactional
-        I/O and more.
-        
-        \paragraph{}
         In order to release a driver to the market, it needs to be digitally signed by microsoft, and the only way of receiving the signature, it
-        must pass the WHQL test suite. In the case of wslflt.sys, that would be the Filter Driver Test Suite\cite{fdts}.
+        must pass the WHQL test suite. In the case of wslflt.sys, that would be the Filter Driver Test Suite. These complex test suite
+        contains extensive checks for reparse point handling, I/O stress conditions, transactional I/O, code integrity checks and much more for
+        multiple file systems.
+
+    \section{Static Code Analysis}
+        Static code analysis is a technique used to find potential bugs in a software without actually running it. Most code analysis tools use
+        either the source code itself or some form of intermediate form of the code, (i.e. object code).
+
+        SAL is a source code annotation language developed by Microsoft for C and C++. Its purpose is to clarify the intent behind code, locking
+        behavior or function parameters while also enabling static code analysis.
+
+        Below is an example of SAL annotated function:
+
+    \begin{Verbatim}[fontsize=\small, commandchars=\\\{\}]
+\textcolor{magenta}{_Must_inspect_result_}
+\textcolor{blue}{void} * memcpy(  
+    \textcolor{magenta}{_Out_writes_bytes_all_}(count) \textcolor{blue}{void} *dest,   
+    \textcolor{magenta}{_In_reads_bytes_}(count) \textcolor{blue}{const void} *src,   
+    \textcolor{magenta}{_In_} \textcolor{blue}{size_t} count  
+);  
+    \end{Verbatim}
+
+    \textunderscore Must\textunderscore inspect\textunderscore result\textunderscore
+    - indicates that the return value of the function must be checked
+
+    \textunderscore Out\textunderscore writes\textunderscore bytes\textunderscore all\textunderscore (count)
+    - indicates an output parameter where we write exactly "count" bytes
+
+    \textunderscore Out\textunderscore read\textunderscore bytes\textunderscore (count)
+    - indicates an input parameter from which we read exactly "count" bytes.
+
+    \paragraph{}
+    During code analysis, all these annotations are checked and any anomaly (i.e. writing to an \textunderscore In\textunderscore {} parameter) is
+    reported as a compilataion warning.

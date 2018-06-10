@@ -1,42 +1,14 @@
 \chapter{Implementation Details}
-    \section{Process Filtering}
-        \begin{lstlisting}
-            PsSetCreateProcessNotifyRoutineEx2(a, b);
-        \end{lstlisting}
-            
-    This is the most reliable way of monitoring and blocking potentially malicious linux applications. Unlike a user-mode hooking framework
-    approach, using a windows driver provides mechanisms of monitoring that cannot be bypassed or tampered with by the monitored processes, making
-    it a very reliable and secure approach.\\
-    The best choice for achieving reliable file system i/o and process monitoring is a file system minifilter driver.
-    
-    \section{File System Filtering}
-    Windows file system i/o requests are contained in IRPs (i/o request packets). The minifilter driver registers its callback with the
-    filesystem by calling FltRegisterFilter and passing an array of callbacks. The main difference between filtering i/o requests issued by win32
-    processes and linux processes is that, for linux processes, the RequestorMode is KernelMode, because IRPs are issued by the kernel. This means
-    that unlike the usual filtering algorithm, which skips KernelRequests, now we must process and check that the Requestor PID is not system.
+    In this section I will go into detail about how the system was implemented, monitoring techniques, and communication between various
+    components.
 
-    \paragraph{}
-    When filtering file system operations, we are mostly interested in 2 fields of the FLT\textunderscore CALLBACK\textunderscore DATA structure,
-    while the FILE\textunderscore OBJECT is taken from the FLT\textunderscore RELATED\textunderscore OBJECTS structure.
+    \section{Activity Monitoring}
 
-    \begin{verbatim}
-0: kd> dt fltmgr!_FLT_CALLBACK_DATA
-...
-0x10 Iopb         : Ptr64 _FLT_IO_PARAMETER_BLOCK
-...
-0x50 RequestorMode: Char
+    Monitoring activity from a minifilter driver is the most reliable way of monitoring and blocking potentially malicious linux applications.
+    Unlike a user-mode hooking framework approach, using a minifilter driver provides mechanisms of monitoring that cannot be bypassed or tampered
+    with by the monitored processes, making it a very reliable and secure approach.
 
-0: kd> dt fltmgr!_FLT_RELATED_OBJECTS
-...
-0x20 FileObject   : Ptr64 _FILE_OBJECT
-...
-    \end{verbatim}
-
-    \paragraph{}
-    
-
-    \section{Process Monitoring}
-        \paragraph{}
+    \subsection{Process Monitoring}
         Process monitorig refers to getting synchronous notifications on both process creation and process termination in order to keep track
         of the currently active processes and process hierarchy.
 
@@ -44,9 +16,116 @@
         In order to receive these notifications, the driver must register a callback with PsSetCreateProcessNotifyRoutineEx2. This callback will
         be called for both win32 processes and pico processes. To identify a WSL process, the driver must call ZwQueryInformationProcess with
         SubsystemInformationTypeWSL information type on the process' handle and check that the subsystem type is SubsystemInformationTypeWSL.
+
+        \paragraph{}
+        All monitored processes are stored in a structure named "Process Collector". We monitor only Linux processes and windows processes that
+        have their parent process in the collector. The second condition is needed because we have to monitor Windows processes that are started
+        by Linux processes.
+
+        For each monitored process we hold an object called Process, which is allocated from a paged memory lookaside list, in order to
+        optimize allocations. A lookaside list is a cache of free memory blocks. Whenever we allocate an object from a lookaside list, if
+        an empty block is available, we pop the empty block from the list and use it, otherwise we allocate from the paged pool. Whenever we free
+        an object allocated from a lookaside list, we push it into the cache if the cache is not full, otherwise we actually free the memory
+        block
+
+        Since many processes are started and terminate throught the run time of the system, using lookaside lists for our "Process" objects
+        turned out to be an important optimization
+        
+        \paragraph{}
+        The thread safety of the lookaside list's push and pop operations is given by the usage of InterlockedPushEntrySList and
+        InterlockedPopEntrySList Windows APIs, that use SLIST\textunderscore ENTRY nodes, which are actually nodes in a singly linked list.
+
+        \subsection{File System Activity Monitoring}
+        File system activity monitoring refers to monitoring the disk I/O operations a process does and identifying relevant events such as
+        rename, delete, etc. These events that play a vital role in identifying potentially malicious behavior (i.e dropping an executable in
+        C:\textbackslash Windows\textbackslash System32).
+        
+        Monitoring file system activity can be easily done with a minifilter driver by
+        registering "pre" and "post" callbacks for various operations (i.e. IRP\textunderscore MJ\textunderscore CREATE).
+
+    Example callbacks registration:
+
+    \begin{Verbatim}[fontsize=\small, commandchars=\\\{\}]
+\textcolor{blue}{constexpr} \textcolor{cyan}{FLT_OPERATION_REGISTRATION} OperationRegistration[] =
+\{
+    \{
+        \textcolor{magenta}{IRP_MJ_CREATE},
+        0,
+        PreCreateCallback,
+        PostCreateCallback
+    \},
+    ...
     
+    \{ \textcolor{magenta}{IRP_MJ_OPERATION_END}, \}
+\};
+    \end{Verbatim}
+
+    \paragraph{}
+    After registering the callbacks above, for every IRP\textbackslash MJ\textbackslash CREATE IRP (i/o request packet), "PreCreateCallback"
+    will be called before actually doing the operation, giving us the oportunity to skip the post callback call if needed, and
+    "PostCreateCallback" will be called after the operation was completed, giving us information about the completion status, used file object,
+    etc.
+
+    An IRP is a partially opaque and self contained structure that represents an I/O operation and holds all of the information needed by
+    a driver to handle that I/O request.
+
+    \paragraph{}
+    In order to identify the requestor of the IRP we call FltGetRequestorProcessId, which gives us the PID of the process. The RequestorMode
+    field can be either KernelMode or UserMode, telling us whether the IRP was issued by the kernel or not. Traditionally, most av-solutions
+    would skip KernelMode IRPs, as they would not be important.
+    
+    This was one of the issues that came along with WSL, as linux processes, not knowing of the Windows kernel, can't issue IRPs. Instead,
+    the pico provider (lxcore.sys) issues them, therefore the IRPs have  RequestorMode equal to KernelMode. However, the requestor pid is
+    that of the actual process that started the I/O operation, therefore the IRP filtering algorithm would filter KernelMode IRPs too, if
+    and only if the requestor PID is different than system process PID.
+
+    \pagebreak
+
     \section{Communication}
+        
+        Two communication channels were implemented for this application:
+        \begin{enumerate}
+            \item wslflt.sys to wslcore.dll
+            \item wslamss.exe to WSL Anti-Malware.exe
+        \end{enumerate}
+
+        \paragraph{}
+        The first communication channel is designed to provide a user-mode component with control over the driver while also giving the driver
+        the ability to notify a user-mode component about certain events (i.e. detection).
+        
+        Communication between the driver and the dll used for integration is implemented using Windows Filter Ports. This is a minifilter
+        specific communication technology which enables two-way communication between a minifiter driver, acting as a server, and a user-mode
+        application, acting as a client.
+
+        \paragraph{}
+        The second communication channel has the purpose of connecting the .NET service which integrates the SDK to the GUI application and is
+        a two-way, RPC like, net.tcp protocol channel.
+
+        The server endpoint is located in the .NET service which integrated the SDK, while the client service is located in the GUI application.
+        Both endpoints have similar architecture, where requests from the other side are implemented as .NET events, and requests towards the other
+        side are done through an service contract interface.
+
+        For now, the service provides only one type of notification, which is the process detected notification, which is listened to by the GUI
+        aplication in order to send a toast notification to the system, informing the user of the detection.
+        The requests that the service can resolve are:
+        \begin{itemize}
+            \item start monitoring
+            \item stop monitoring
+            \item get detection history
+            \item query current settings
+        \end{itemize}
 
     \section{Detection Flow}
+        It is imperative to notify the user about a detection as soon as possible and provide him with information about why the detection
+        was issued. 
 
-    \section{Scoring Engine}
+    \section{Application Tracing and Instrumentation}
+        In order to ease debugging and identifying issues in production code, it is important for the code to be properly traced with relevant
+        and meaningful log messages, without easing the reverse engineering process by havin the log message strings in the executable. All of
+        this can be achieved by using Windows software trace preprocessor (WPP), a framework based on Event Tracing for Windows. This way, 
+        log messages can't be decoded without having the traced application symbols, which are stored in pdb files.
+
+        \paragraph{}
+        WPP was used for both wslflt.sys and wslcore.dll, while the integration service create service event log named WSL Anti-Malware System 
+        Service. This log will hold information about WSL events and incidents that can be viewed by system administrators via the Event Viewer
+        utility.
