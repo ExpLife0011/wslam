@@ -16,6 +16,8 @@
             \item request administrator rights at process start via manifest
             \item from a privileged process by simply calling CreateProcess
         \end{itemize}
+
+        \paragraph{}
         However, there is no way to legitimately elevate an already running process.
 
         \paragraph{}
@@ -36,13 +38,13 @@
         \end{verbatim}
 
         \paragraph{}
-        If a process already is elevated, any process spawned by it will also be elevated by default. We can easily see that, if wsl.exe is started with admin rights, all linux
-        processes running in that WSL instance will be granted admin rights inside Windows, which would be disastrous consoidering the security
+        If a process is already is elevated, any process spawned by it will also be elevated by default. We can easily see that, if wsl.exe is started with admin rights, all linux
+        processes running in that WSL instance will be granted admin rights inside Windows, which would be disastrous considering the security
         of the computer.
 
         \paragraph{}
-        An easy, yet not completly reliable method for detecting this type of exploit can be implemented in a kernel driver. A more reliable method
-        would be using memory introspection techniquest from a hypervisor, but I will only cover the first.
+        An easy, yet not completly reliable method for detecting this type of exploit can be implemented in a kernel driver. A more reliable
+        method would be using hypervisor memory introspection techniques, but I will only cover the first.
 
         \paragraph{}
         I'm going to describe the most basic way of detecting privilege escalation, which is, detecting if a process was maliciously started
@@ -64,7 +66,7 @@ ZwQueryInformationToken(token, \textcolor{Apricot}{TokenElevation}, &tokenElevat
         suspect that the process might be doing something potentially malicious. For example, any file operation done in the \%SystemRoot\%
         directory.
 
-        At this point, it's easy to see several issues:\\
+        At this point, it's easy to see several issues:
 
         \begin{itemize}
             \item if the exploit elevates a running process
@@ -100,6 +102,10 @@ ZwQueryInformationToken(token, \textcolor{Apricot}{TokenElevation}, &tokenElevat
             \item we check if the process was elevated since it was started
             \item we kill the process if the process was elevated
         \end{enumerate}
+
+        \paragraph{}
+        Even though the vulnerability that led to the execve exploit\cite{execve} was fixed by Microsoft, we can see that the described algorithm
+        is a generic approach as it does not take into consideration any particularities in the previously mention exploit.
 
     \section{File Infectors and Droppers Detection}
         \paragraph{}

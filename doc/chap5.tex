@@ -24,12 +24,11 @@
 
         For each monitored process we hold an object called Process, which is allocated from a paged memory lookaside list, in order to
         optimize allocations. A lookaside list is a cache of free memory blocks. Whenever we allocate an object from a lookaside list, if
-        an empty block is available, we pop the empty block from the list and use it, otherwise we allocate from the paged pool. Whenever we free
-        an object allocated from a lookaside list, we push it into the cache if the cache is not full, otherwise we actually free the memory
-        block
+        an empty block is available, we pop the empty block from the list and use it, otherwise we allocate from the paged pool. Whenever we
+        free an object allocated from a lookaside list, we push it into the cache if it is not full. Otherwise we actually free the memory block.
 
         Since many processes are started and terminate throught the run time of the system, using lookaside lists for our "Process" objects
-        turned out to be an important optimization
+        turned out to be an important optimization.
         
         \paragraph{}
         The thread safety of the lookaside list's push and pop operations is given by the usage of InterlockedPushEntrySList and
@@ -61,7 +60,7 @@
     \end{Verbatim}
 
     \paragraph{}
-    After registering the callbacks above, for every IRP\textbackslash MJ\textbackslash CREATE IRP (i/o request packet), "PreCreateCallback"
+    After registering the callbacks above, for every IRP\textunderscore MJ\textunderscore CREATE IRP (I/O request packet), "PreCreateCallback"
     will be called before actually doing the operation, giving us the oportunity to skip the post callback call if needed, and
     "PostCreateCallback" will be called after the operation was completed, giving us information about the completion status, used file object,
     etc.
@@ -71,13 +70,16 @@
 
     \paragraph{}
     In order to identify the requestor of the IRP we call FltGetRequestorProcessId, which gives us the PID of the process. The RequestorMode
-    field can be either KernelMode or UserMode, telling us whether the IRP was issued by the kernel or not. Traditionally, most av-solutions
+    field can be either KernelMode or UserMode, telling us whether the IRP was issued by the kernel or not. Traditionally, most AV-solutions
     would skip KernelMode IRPs, as they would not be important.
     
-    This was one of the issues that came along with WSL, as linux processes, not knowing of the Windows kernel, can't issue IRPs. Instead,
-    the pico provider (lxcore.sys) issues them, therefore the IRPs have  RequestorMode equal to KernelMode. However, the requestor pid is
-    that of the actual process that started the I/O operation, therefore the IRP filtering algorithm would filter KernelMode IRPs too, if
+    This was one of the issues that came along with WSL, as linux processes, not knowing of the Windows kernel, can't issue IRPs by their own.
+    Instead, the pico provider (lxcore.sys) issues them, therefore the IRPs have  RequestorMode equal to KernelMode. However, the requestor PID
+    is that of the actual process that started the I/O operation, therefore the IRP filtering algorithm would filter KernelMode IRPs too, if
     and only if the requestor PID is different than system process PID.
+
+    \paragraph{}
+
 
     \pagebreak
 
@@ -108,16 +110,13 @@
         For now, the service provides only one type of notification, which is the process detected notification, which is listened to by the GUI
         aplication in order to send a toast notification to the system, informing the user of the detection.
         The requests that the service can resolve are:
+        
         \begin{itemize}
             \item start monitoring
             \item stop monitoring
             \item get detection history
             \item query current settings
         \end{itemize}
-
-    \section{Detection Flow}
-        It is imperative to notify the user about a detection as soon as possible and provide him with information about why the detection
-        was issued. 
 
     \section{Application Tracing and Instrumentation}
         In order to ease debugging and identifying issues in production code, it is important for the code to be properly traced with relevant

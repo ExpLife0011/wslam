@@ -202,11 +202,11 @@ OUTPUT chap2.aux
 INPUT chap2.tex
 INPUT chap2.tex
 INPUT c:/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT c:/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
+INPUT c:/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT img/wsl_components.png
 INPUT ./img/wsl_components.png
 INPUT ./img/wsl_components.png
-INPUT c:/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
-INPUT c:/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT img/lxss.png
 INPUT ./img/lxss.png
 INPUT ./img/lxss.png

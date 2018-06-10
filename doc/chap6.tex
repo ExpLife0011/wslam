@@ -6,9 +6,9 @@
     
     \section{Whitebox Testing}
         \paragraph{}
-        In order to use the Test Driven Development paradigm, a whitebox unittesting framework was required. The unittest project contains
-        mock definitions of kernel functions (e.g. ExAllocatePoolWithTag), and unittests for each class. Mocking kernel functions helped in
-        achieving high coverage of the driver code in a user-mode enviroment, thus saving development time. Moreover, these unittests can be
+        In order to use the Test Driven Development paradigm, a whitebox unit testing framework was required. The unit test project contains
+        mock definitions of kernel functions (e.g. ExAllocatePoolWithTag), and unit tests for each class. Mocking kernel functions helped in
+        achieving high coverage of the driver code in a user-mode enviroment, thus saving development time. Moreover, these uni ttests can be
         easily configured to run at each solution build, making it a very reliable and easy to use continuous integration tool.
         
         \paragraph{}
@@ -28,7 +28,7 @@
 
     \section{Blackbox testing}
         Blackbox testing, both manual and automated, is the main method of attesting a product's value, usefuleness and correctness regarding
-        the users' needs. I have used blackbox techniques in order to verify both functional (i.e. detection and non-functional requirements
+        the users' needs. I have used blackbox techniques in order to verify both functional (i.e. detection) and non-functional requirements
         (i.e. stability, security, reliability).
 
         In order to identify memory or handle leaks, potential deadlocks, incorrect IRP handling, code integrity violation and other potential
@@ -38,18 +38,12 @@
         Most blackbox testcases were implemented as bash scripts running in WSL, but some more complex testcases were also implemented
         using powershell.
 
-    \section{WHQL Testing}
-        In order to release a driver to the market, it needs to be digitally signed by microsoft, and the only way of receiving the signature, it
-        must pass the WHQL test suite. In the case of wslflt.sys, that would be the Filter Driver Test Suite. These complex test suite
-        contains extensive checks for reparse point handling, I/O stress conditions, transactional I/O, code integrity checks and much more for
-        multiple file systems.
-
     \section{Static Code Analysis}
         Static code analysis is a technique used to find potential bugs in a software without actually running it. Most code analysis tools use
         either the source code itself or some form of intermediate form of the code, (i.e. object code).
 
-        SAL is a source code annotation language developed by Microsoft for C and C++. Its purpose is to clarify the intent behind code, locking
-        behavior or function parameters while also enabling static code analysis.
+        SAL is a source code annotation language developed by Microsoft for C and C++. Its purpose is to clarify the intent behind the code,
+        locking behavior or function parameters while also enabling static code analysis.
 
         Below is an example of SAL annotated function:
 
@@ -62,15 +56,21 @@
 );  
     \end{Verbatim}
 
-    \textunderscore Must\textunderscore inspect\textunderscore result\textunderscore
-    - indicates that the return value of the function must be checked
+        \textunderscore Must\textunderscore inspect\textunderscore result\textunderscore
+        - indicates that the return value of the function must be checked
 
-    \textunderscore Out\textunderscore writes\textunderscore bytes\textunderscore all\textunderscore (count)
-    - indicates an output parameter where we write exactly "count" bytes
+        \textunderscore Out\textunderscore writes\textunderscore bytes\textunderscore all\textunderscore (count)
+        - indicates an output parameter where we write exactly "count" bytes
 
-    \textunderscore Out\textunderscore read\textunderscore bytes\textunderscore (count)
-    - indicates an input parameter from which we read exactly "count" bytes.
+        \textunderscore Out\textunderscore read\textunderscore bytes\textunderscore (count)
+        - indicates an input parameter from which we read exactly "count" bytes
 
-    \paragraph{}
-    During code analysis, all these annotations are checked and any anomaly (i.e. writing to an \textunderscore In\textunderscore {} parameter) is
-    reported as a compilataion warning.
+        \paragraph{}
+        During code analysis, all these annotations are checked and any anomaly (i.e. writing to an \textunderscore In\textunderscore {} parameter) is
+        reported as a compilataion warning.
+
+    \section{WHQL Testing}
+        In order to release a driver to the market, it needs to be digitally signed by microsoft, and the only way of receiving the signature, it
+        must pass the WHQL test suite. In the case of wslflt.sys, that would be the Filter Driver Test Suite. These complex test suite
+        contains extensive checks for reparse point handling, I/O stress conditions, transactional I/O, code integrity checks and much more for
+        multiple file systems.

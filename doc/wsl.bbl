@@ -35,7 +35,7 @@
       \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{howpublished}{\url{https://github.com/charlespwd/project-title}}
+      \field{howpublished}{\url{https://github.com/saaramar/execve_exploit}}
       \field{title}{execve exploit}
       \field{year}{2018}
     \endentry
@@ -85,6 +85,36 @@
       \field{title}{GAINING VISIBILITY INTO LINUX BINARIES ON WINDOWS: DEFEND AND UNDERSTAND WSL}
       \field{year}{2016}
     \endentry
+    \entry{jacob2008behavioral}{article}{}
+      \name{author}{1}{}{%
+        {{hash=12790390395f980b53af23604208bb11}{%
+           family={{Jacob, G., Debar, H., Filiol, E.}},
+           familyi={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{12790390395f980b53af23604208bb11}
+      \strng{fullhash}{12790390395f980b53af23604208bb11}
+      \strng{bibnamehash}{12790390395f980b53af23604208bb11}
+      \strng{authorbibnamehash}{12790390395f980b53af23604208bb11}
+      \strng{authornamehash}{12790390395f980b53af23604208bb11}
+      \strng{authorfullhash}{12790390395f980b53af23604208bb11}
+      \field{sortinit}{J}
+      \field{sortinithash}{fce5f8d0bd05e8d93f3dbe21c78897ca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal in computer Virology}
+      \field{number}{3}
+      \field{title}{Behavioral detection of malware: from a survey towards an established taxonomy}
+      \field{volume}{4}
+      \field{year}{2008}
+      \field{pages}{251\bibrangedash 266}
+      \range{pages}{16}
+      \verb{doi}
+      \verb https://doi.org/10.1007/s11416-008-0086-0
+      \endverb
+    \endentry
     \entry{TheArtOfMemoryForensics}{book}{}
       \name{author}{1}{}{%
         {{hash=c50077963227649132a4ab8b785ebd70}{%
@@ -109,41 +139,6 @@
       \field{labeltitlesource}{title}
       \field{title}{The Art of Memory Forensics}
       \field{year}{2014}
-    \endentry
-    \entry{ransomware}{book}{}
-      \name{author}{1}{}{%
-        {{hash=59eb321bb5c9cd7e9ac1456f19165259}{%
-           family={Magnus\bibnamedelima Almgren},
-           familyi={M\bibinitperiod\bibinitdelim A\bibinitperiod},
-           given={Federico\bibnamedelimb Maggi\bibnamedelima (eds.)},
-           giveni={F\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim (\bibinitperiod},
-           suffix={Vincenzo\bibnamedelima Gulisano},
-           suffixi={V\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Springer International Publishing}%
-      }
-      \strng{namehash}{59eb321bb5c9cd7e9ac1456f19165259}
-      \strng{fullhash}{59eb321bb5c9cd7e9ac1456f19165259}
-      \strng{bibnamehash}{59eb321bb5c9cd7e9ac1456f19165259}
-      \strng{authorbibnamehash}{59eb321bb5c9cd7e9ac1456f19165259}
-      \strng{authornamehash}{59eb321bb5c9cd7e9ac1456f19165259}
-      \strng{authorfullhash}{59eb321bb5c9cd7e9ac1456f19165259}
-      \field{sortinit}{M}
-      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{edition}{1}
-      \field{isbn}{978-3-319-20549-6,978-3-319-20550-2}
-      \field{series}{Lecture Notes in Computer Science 9148}
-      \field{title}{Detection of Intrusions and Malware, and Vulnerability Assessment: 12th International Conference, DIMVA 2015, Milan, Italy, July 9-10, 2015, Proceedings}
-      \field{year}{2015}
-      \verb{urlraw}
-      \verb http://gen.lib.rus.ec/book/index.php?md5=71a7ae5d312f7797affd68e24d20647c
-      \endverb
-      \verb{url}
-      \verb http://gen.lib.rus.ec/book/index.php?md5=71a7ae5d312f7797affd68e24d20647c
-      \endverb
     \endentry
     \entry{ieeeproc2007}{inproceedings}{}
       \name{author}{1}{}{%

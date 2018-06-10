@@ -28,7 +28,7 @@
         \end{itemize}
 
         \paragraph{wslflt.sys}
-        is C++ minifilter driver that contains the requirued sensors for monitoring process' activity. It's key components are the
+        is a C++ minifilter driver that contains the requirued sensors for monitoring process' activity. It's key components are the
         process filter, file filter, event dispatcher, the communication framework and the detection heuristics.
 
         \paragraph{wslcore.dll}
@@ -69,7 +69,7 @@
         \subsection{Process Filter}
         The process filter is a stateful component, in the snese that the filter can be enabled or disabled, and responsible for registering
         the callback for process creation and termination notifications. It contains the logic for deciding whether or not a process should be
-        monitored or not.
+        monitored.
 
         It also contains a process collector, which is used as a databse of active processes, internally represented by instaces of the Process
         class. A Process object holds the needed information for uniquely identifying the process throughout it's lifetime as well as other
@@ -86,10 +86,21 @@
             \item IRP\textunderscore MJ\textunderscore WRITE
         \end{itemize}
         
-
-        
     \section{Integration Architecture}
-    The SDK integration logic is encapsulated into a .NET service,
+    The SDK integration logic is encapsulated into a wslamss .NET Windows service application and is the juncture between the SDK and any 
+    client application which would serve as a user interface.
+
+    This architecture makes the integration project highly extensible, allowing the developement of a central application that can monitor
+    reported incidents and other events from multiple clients (systems with the anti-malware solution installed). For example, this could be
+    useful for the network administrators or security reposibles in business enviroments, allowing for faster incident response.
+    
+    \paragraph{}
+    The service has an external-facing WCF interface which is accessible trhough the net.tcp://localhost:8000. The metadata is available at
+    net.tcp://localhost:8000/mex. The metadata exchange endpoint is done via SOAP messages that contain various information that describes
+    the service, such as: available operations, parameter types, return types, callbacks that need to be implemented, etc. In other words,
+    the metadata exchange endpoint exposes the WCF contract implemented by the service.
+
+    
 
 
         

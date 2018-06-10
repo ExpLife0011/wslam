@@ -1,18 +1,16 @@
 [0] Config.pm:302> INFO - This is Biber 2.10
 [0] Config.pm:305> INFO - Logfile is 'wsl.blg'
-[52] biber-MSWIN32:313> INFO - === 
-[98] Biber.pm:371> INFO - Reading 'wsl.bcf'
-[253] Biber.pm:854> INFO - Using all citekeys in bib section 0
-[276] Biber.pm:3976> INFO - Processing section 0
-[300] Biber.pm:4136> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
-[302] bibtex.pm:1444> INFO - Reading ascii input as UTF-8
-[305] bibtex.pm:1490> INFO - LaTeX decoding ...
-[328] bibtex.pm:1306> INFO - Found BibTeX data source 'bibliography.bib'
-[366] Utils.pm:193> WARN - ISBN '978-3-319-20549-6,978-3-319-20550-2' in entry 'ransomware' is invalid - run biber with '--validate_datamodel' for details.
-[422] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[423] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[423] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[423] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[444] bbl.pm:617> INFO - Writing 'wsl.bbl' with encoding 'ascii'
-[449] bbl.pm:720> INFO - Output to wsl.bbl
-[451] Biber.pm:110> INFO - WARNINGS: 1
+[63] biber-MSWIN32:313> INFO - === 
+[114] Biber.pm:371> INFO - Reading 'wsl.bcf'
+[270] Biber.pm:854> INFO - Using all citekeys in bib section 0
+[302] Biber.pm:3976> INFO - Processing section 0
+[326] Biber.pm:4136> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
+[329] bibtex.pm:1444> INFO - Reading ascii input as UTF-8
+[332] bibtex.pm:1490> INFO - LaTeX decoding ...
+[360] bibtex.pm:1306> INFO - Found BibTeX data source 'bibliography.bib'
+[424] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[424] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[425] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[425] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[436] bbl.pm:617> INFO - Writing 'wsl.bbl' with encoding 'ascii'
+[442] bbl.pm:720> INFO - Output to wsl.bbl
