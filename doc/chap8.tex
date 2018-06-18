@@ -26,8 +26,11 @@
 
         \paragraph{}
         Finally, in order to more reliably and efficiently detect exploits in general, especially kernel exploits, memory introspection
-        techniques could be implemented at hypervisor level. For example, privilege escalation could by detecting by hooking memory access
-        at process security tokens and making use of Extended Page Tables (EPT).
+        techniques could be implemented at hypervisor level. ) Hypervisor perform virtualization without a host operating system between them
+        and physicalsystem hardware\cite{Bulazel}. The Xen hypervisor \cite{Barham} has been used in several surveyed analysis systems.
+        
+        For example, privilege escalation could by detecting by hooking memory access at process security tokens and making use of Extended
+        Page Tables (EPT).
         
     \section{Reverting malicious actions}
         In case of behavioral detection, a process could do some malicious actions before being detected. For example, a ransomware may actually

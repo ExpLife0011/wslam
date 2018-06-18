@@ -1925,13 +1925,21 @@
   <bcf:section number="0">
     <bcf:citekey order="1">WindowsInternals</bcf:citekey>
     <bcf:citekey order="2">WindowsInternals</bcf:citekey>
-    <bcf:citekey order="3">Bluehat2016AI</bcf:citekey>
-    <bcf:citekey order="4">TheArtOfMemoryForensics</bcf:citekey>
-    <bcf:citekey order="5">ieeeproc2007</bcf:citekey>
-    <bcf:citekey order="6">execve</bcf:citekey>
-    <bcf:citekey order="7">ASADMATT</bcf:citekey>
-    <bcf:citekey order="8">jacob2008behavioral</bcf:citekey>
-    <bcf:citekey order="9">execve</bcf:citekey>
+    <bcf:citekey order="3">WSLComponents</bcf:citekey>
+    <bcf:citekey order="4">Bluehat2016AI</bcf:citekey>
+    <bcf:citekey order="5">TheArtOfMemoryForensics</bcf:citekey>
+    <bcf:citekey order="6">WSLFS</bcf:citekey>
+    <bcf:citekey order="7">ieeeproc2007</bcf:citekey>
+    <bcf:citekey order="8">execve</bcf:citekey>
+    <bcf:citekey order="9">ASADMATT</bcf:citekey>
+    <bcf:citekey order="10">jacob2008behavioral</bcf:citekey>
+    <bcf:citekey order="11">TheCppProgrammingLanguage</bcf:citekey>
+    <bcf:citekey order="12">CleanCode</bcf:citekey>
+    <bcf:citekey order="13">WindowsInternals62</bcf:citekey>
+    <bcf:citekey order="14">EffectiveModernCpp</bcf:citekey>
+    <bcf:citekey order="15">execve</bcf:citekey>
+    <bcf:citekey order="16">Bulazel</bcf:citekey>
+    <bcf:citekey order="17">Barham</bcf:citekey>
     <bcf:citekey order="0">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->

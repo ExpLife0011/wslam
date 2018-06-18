@@ -18,7 +18,8 @@
         driver was the only reliable choice.
 
     \section{C++ in Kernel Drivers}
-        C++ has the advantage of being easy to use in developing coherent, object-oriented, robust and safe applications. However, msvc compiler
+        C++ was developed from the C programming language and, with few exceptions, retains C as a subset \cite{TheCppProgrammingLanguage}. It
+        has the advantage of being easy to use in developing coherent, object-oriented, robust and safe applications. However, msvc compiler
         does not, by default, support C++ in kernel drivers. Therefore, I had to implement C++ support from scratch.
 
         \paragraph{}
@@ -34,10 +35,8 @@
         a memory pool type and a tag, I had also overloaded the new and delete operators, in order to support two additional parameters. This
         way, the new operator can be called as follows:
 
-        % TODO - syntax highlight.
-
-        \begin{Verbatim}
-auto ptr = new(NonPagedPoolNx, 'GAT\#') Process{arg1, arg2};
+        \begin{Verbatim}[fontsize=\small, commandchars=\\\{\}]
+\textcolor{blue}{auto} ptr = \textcolor{blue}{new}(\textcolor{Apricot}{NonPagedPoolNx}, \textcolor{red}{'GAT\#'}) \textcolor{cyan}{Process}\{ arg1, arg2 \};
         \end{Verbatim}
 
         This will allocate a Process object from the non executable non paged pool with the "\#TAG" allocation tag.

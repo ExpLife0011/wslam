@@ -1,6 +1,6 @@
 \chapter{Implementation Details}
-    In this section I will go into detail about how the system was implemented, monitoring techniques, and communication between various
-    components.
+    In this section I will go into detail about monitoring techniques, communication between various components and how the system was
+    implemented.
 
     \section{Activity Monitoring}
 
@@ -66,7 +66,8 @@
     etc.
 
     An IRP is a partially opaque and self contained structure that represents an I/O operation and holds all of the information needed by
-    a driver to handle that I/O request.
+    a driver to handle that I/O request. The I/O manager creates an IRP in memory to represent an I/O operation, passing a pointer to the
+    IRP to the correct driver and disposing of the packet when the I/O operation is complete\cite{WindowsInternals62}.
 
     \paragraph{}
     In order to identify the requestor of the IRP we call FltGetRequestorProcessId, which gives us the PID of the process. The RequestorMode
@@ -77,9 +78,6 @@
     Instead, the pico provider (lxcore.sys) issues them, therefore the IRPs have  RequestorMode equal to KernelMode. However, the requestor PID
     is that of the actual process that started the I/O operation, therefore the IRP filtering algorithm would filter KernelMode IRPs too, if
     and only if the requestor PID is different than system process PID.
-
-    \paragraph{}
-
 
     \pagebreak
 
@@ -117,6 +115,74 @@
             \item get detection history
             \item query current settings
         \end{itemize}
+
+    \section{Detection Flow}
+        Based on the communication model presented above, I will present the flow of a detection, starting from the wslflt.sys kernel driver
+        to the GUI Application and toast notification.
+        
+        \paragraph{}
+        The kernel driver is reponsible for issuing the detection and stopping the malicious process. After doing this the user mode system
+        service is informed through the filter port. The system service relays the detection information to the GUI application through the WCF
+        endpoint. Finally, a toast notification is displayed in order to inform the user of the detection.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=300px, keepaspectratio]{img/detection.png}
+            \caption{Detection Notification}
+            \label{fig:detection}
+        \end{figure}
+
+        Clicking the notifications brings the application to front and selects the detections tabs, so that the user can see more information
+        about the detection.
+
+
+    \section{C++ Memory Allocation Framework in the Kernel}
+        Allocating memory in the kernel is done via the ExAllocatePool API family (i.e. ExAllocatePoolWithQuotaTag, ExAllocatePool,
+        ExAllocatePoolWithTag). These APIs have in common the POOL\textunderscore TYPE parameter, which is used to specify the type of memory
+        that the system should allocate. For example, PagedPool type would allocate pageable memory while NonPagedPoolNx would allocate
+        non-pageable and non-executable memory. Pageable memory means that the memory could be paged-in/paged-out between the RAM and the
+        secondary storage (hard-disk).
+
+        Usually, drivers use the ExAllocatePoolWithTag API to allocate memory in order to ease memory leak debugging. This API takes 3
+        parameters: the previously mentioned POOL\textunderscore TYPE, the number of bytes to allocate and an allocation tag. This tag is used
+        in order to keep track of memory allocations and allow the developer to mark each allocation as needed in order to track memory leaks.
+
+        \paragraph{}
+        The problem that rises is integrating this API with C++ "new" operator. This can be done by defining a custom "new" operator which takes
+        the aditional parameters and overload the default "new" operator to use the ExAllocatePoolWithTag API.
+
+        The additional "new" operator would use a C++ specific concept called "traits"\cite{EffectiveModernCpp}. A traits class is usually a small
+        class that stores information about implementation details and policies and provides it to other objects or algorithms. These are usually
+        used to provide meta information at compile time.
+
+        Example of traits class:
+\begin{Verbatim}[fontsize=\small, commandchars=\\\{\}]
+    \textcolor{blue}{template} <\textcolor{blue}{typename} \textcolor{cyan}{_Ty}>
+    \textcolor{blue}{struct} \textcolor{cyan}{TypeTraits}
+    \{
+        \textcolor{blue}{static constexpr} \textcolor{cyan}{ULONG} Tag = \textcolor{magenta}{WSLFLT_TAG_DEFAULT};
+        \textcolor{blue}{static constexpr} \textcolor{cyan}{POOL_TYPE} PoolType = \textcolor{Apricot}{PagedPool};
+    \};
+
+    \textcolor{blue}{template}<>
+    \textcolor{blue}{struct} \textcolor{cyan}{TypeTraits}<\textcolor{cyan}{StreamHandleContext}>
+    \{
+        \textcolor{blue}{static constexpr} \textcolor{cyan}{ULONG} Tag = \textcolor{magenta}{WSLFLT_TAG_STREAMHANDLE_CONTEXT};
+        \textcolor{blue}{static constexpr} \textcolor{cyan}{POOL_TYPE} PoolType = \textcolor{Apricot}{PagedPool};
+    \};
+\end{Verbatim}
+
+    \paragraph{}
+    In this example, the templated TypeTraits class defines the properties it contains and provides default values for each property. Below the
+    TypeTraits definition, there is a specialized definition for the StreamHandleContext class, for which we define the allocation tag and
+    pool type we want to use throughout the driver.
+
+    This design helps in decoupling allocation logic and allows for implementing the C++ allocator concept. Essentially, whenever we need to
+    allocate memory for a type T (be it template or not), we would call the "new" operator as follows:
+
+\begin{Verbatim}[fontsize=\small, commandchars=\\\{\}]
+    \textcolor{blue}{new}(\textcolor{cyan}{TypeTraits}<\textcolor{cyan}{T}>::PoolType, \textcolor{cyan}{TypeTraits}<\textcolor{cyan}{T}>::Tag) \textcolor{cyan}{T} \{ parameter1, parameter2 \};
+\end{Verbatim}
 
     \section{Application Tracing and Instrumentation}
         In order to ease debugging and identifying issues in production code, it is important for the code to be properly traced with relevant

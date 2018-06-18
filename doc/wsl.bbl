@@ -39,6 +39,88 @@
       \field{title}{execve exploit}
       \field{year}{2018}
     \endentry
+    \entry{Barham}{article}{}
+      \name{author}{1}{}{%
+        {{hash=3147bf998e6100bffd70191dcc2a1980}{%
+           family={{Barham, P. Dragovic, B., Fraser, K., Hand, S., Harris, T., Ho, A., Neugebauer, R., Pratt, I., Warfield, A.}},
+           familyi={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{3147bf998e6100bffd70191dcc2a1980}
+      \strng{fullhash}{3147bf998e6100bffd70191dcc2a1980}
+      \strng{bibnamehash}{3147bf998e6100bffd70191dcc2a1980}
+      \strng{authorbibnamehash}{3147bf998e6100bffd70191dcc2a1980}
+      \strng{authornamehash}{3147bf998e6100bffd70191dcc2a1980}
+      \strng{authorfullhash}{3147bf998e6100bffd70191dcc2a1980}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0163-5980}
+      \field{journaltitle}{SIGOPS Oper. Syst. Rev.}
+      \field{month}{10}
+      \field{number}{5}
+      \field{title}{Xen and the Art of Virtualization}
+      \field{volume}{37}
+      \field{year}{2003}
+      \field{pages}{164\bibrangedash 177}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1145/1165389.945462
+      \endverb
+      \verb{urlraw}
+      \verb http://doi.acm.org/10.1145/1165389.945462
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1165389.945462
+      \endverb
+      \keyw{hypervisors,paravirtualization,virtual machine monitors}
+    \endentry
+    \entry{Bulazel}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=83f4b286bcd5a972fa9801e05cbfee68}{%
+           family={{Bulazel, A., Yener,B.}},
+           familyi={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Vienna, Austria}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{83f4b286bcd5a972fa9801e05cbfee68}
+      \strng{fullhash}{83f4b286bcd5a972fa9801e05cbfee68}
+      \strng{bibnamehash}{83f4b286bcd5a972fa9801e05cbfee68}
+      \strng{authorbibnamehash}{83f4b286bcd5a972fa9801e05cbfee68}
+      \strng{authornamehash}{83f4b286bcd5a972fa9801e05cbfee68}
+      \strng{authorfullhash}{83f4b286bcd5a972fa9801e05cbfee68}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 1st Reversing and Offensive-oriented Trends Symposium}
+      \field{isbn}{978-1-4503-5321-2}
+      \field{series}{ROOTS}
+      \field{title}{A Survey On Automated Dynamic Malware Analysis Evasion and Counter-Evasion: PC, Mobile, and Web}
+      \field{year}{2017}
+      \field{pages}{2:1\bibrangedash 2:21}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/3150376.3150378
+      \endverb
+      \verb{urlraw}
+      \verb http://doi.acm.org/10.1145/3150376.3150378
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/3150376.3150378
+      \endverb
+      \keyw{Anti-Analysis,Anti-Debugging,Dynamic Analysis,Emulation,Evasive Malware,Malware Analysis,Virtualization}
+    \endentry
     \entry{ASADMATT}{article}{}
       \name{author}{1}{}{%
         {{hash=46cb13a7caa9925c0f9d15596ea7d5d9}{%
@@ -65,6 +147,46 @@
       \verb 10.1145/2089125.2089126 \url{http://doi.acm.org/10.1145/2089125.2089126}
       \endverb
     \endentry
+    \entry{WSLComponents}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=81f6beb2302fb58e6d16e4d7069dd273}{%
+           family={{Hammons J.}},
+           familyi={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{fullhash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{bibnamehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{authorbibnamehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{authornamehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{authorfullhash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/}}
+      \field{title}{Windows Subsystem for Linux Overview}
+      \field{year}{2016}
+    \endentry
+    \entry{WSLFS}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=81f6beb2302fb58e6d16e4d7069dd273}{%
+           family={{Hammons J.}},
+           familyi={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{fullhash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{bibnamehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{authorbibnamehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{authornamehash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \strng{authorfullhash}{81f6beb2302fb58e6d16e4d7069dd273}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://blogs.msdn.microsoft.com/wsl/2016/06/15/wsl-file-system-support/}}
+      \field{title}{WSL File System Support}
+      \field{year}{2016}
+    \endentry
     \entry{Bluehat2016AI}{unpublished}{}
       \name{author}{1}{}{%
         {{hash=e055f6e5024805d79ece3a0cbea03e61}{%
@@ -83,6 +205,26 @@
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{http://www.alex-ionescu.com/publications/BlueHat/bluehat2016.pdf}}
       \field{title}{GAINING VISIBILITY INTO LINUX BINARIES ON WINDOWS: DEFEND AND UNDERSTAND WSL}
+      \field{year}{2016}
+    \endentry
+    \entry{Blackhat2016AI}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=e055f6e5024805d79ece3a0cbea03e61}{%
+           family={{Ionescu A.}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{e055f6e5024805d79ece3a0cbea03e61}
+      \strng{fullhash}{e055f6e5024805d79ece3a0cbea03e61}
+      \strng{bibnamehash}{e055f6e5024805d79ece3a0cbea03e61}
+      \strng{authorbibnamehash}{e055f6e5024805d79ece3a0cbea03e61}
+      \strng{authornamehash}{e055f6e5024805d79ece3a0cbea03e61}
+      \strng{authorfullhash}{e055f6e5024805d79ece3a0cbea03e61}
+      \field{sortinit}{I}
+      \field{sortinithash}{320bc8fe8101b9376f9f21cd507de0e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{http://www.alex-ionescu.com/publications/blackhat/blackhat2016.pdf}}
+      \field{title}{THE LINUX KERNEL HIDDEN INSIDE WINDOWS 10}
       \field{year}{2016}
     \endentry
     \entry{jacob2008behavioral}{article}{}
@@ -140,6 +282,56 @@
       \field{title}{The Art of Memory Forensics}
       \field{year}{2014}
     \endentry
+    \entry{CleanCode}{book}{}
+      \name{author}{1}{}{%
+        {{hash=2d0f9270574808b07814e27b7af821a4}{%
+           family={{Martin R.C.}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Boston}%
+      }
+      \list{publisher}{1}{%
+        {Pearson Education, Inc}%
+      }
+      \strng{namehash}{2d0f9270574808b07814e27b7af821a4}
+      \strng{fullhash}{2d0f9270574808b07814e27b7af821a4}
+      \strng{bibnamehash}{2d0f9270574808b07814e27b7af821a4}
+      \strng{authorbibnamehash}{2d0f9270574808b07814e27b7af821a4}
+      \strng{authornamehash}{2d0f9270574808b07814e27b7af821a4}
+      \strng{authorfullhash}{2d0f9270574808b07814e27b7af821a4}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Clean Code: A Handbook of Agile Software Craftsmanship}
+      \field{year}{2009}
+    \endentry
+    \entry{EffectiveModernCpp}{book}{}
+      \name{author}{1}{}{%
+        {{hash=44e6154ec1bc21d95adec233390ee837}{%
+           family={{Meyers S.}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Sebastopol}%
+      }
+      \list{publisher}{1}{%
+        {O'Reilly}%
+      }
+      \strng{namehash}{44e6154ec1bc21d95adec233390ee837}
+      \strng{fullhash}{44e6154ec1bc21d95adec233390ee837}
+      \strng{bibnamehash}{44e6154ec1bc21d95adec233390ee837}
+      \strng{authorbibnamehash}{44e6154ec1bc21d95adec233390ee837}
+      \strng{authornamehash}{44e6154ec1bc21d95adec233390ee837}
+      \strng{authorfullhash}{44e6154ec1bc21d95adec233390ee837}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Effective Modern C++}
+      \field{year}{2015}
+    \endentry
     \entry{ieeeproc2007}{inproceedings}{}
       \name{author}{1}{}{%
         {{hash=ae3dcaafbc7e4459d777ceb950aa3686}{%
@@ -168,7 +360,33 @@
       \field{pages}{1}
       \range{pages}{1}
     \endentry
-    \entry{WindowsInternals}{book}{}
+    \entry{TheCppProgrammingLanguage}{book}{}
+      \name{author}{1}{}{%
+        {{hash=be126c6199b9061501b012036ed7437b}{%
+           family={{Stroustrup B.}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Murray Hill, New Jersey}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{be126c6199b9061501b012036ed7437b}
+      \strng{fullhash}{be126c6199b9061501b012036ed7437b}
+      \strng{bibnamehash}{be126c6199b9061501b012036ed7437b}
+      \strng{authorbibnamehash}{be126c6199b9061501b012036ed7437b}
+      \strng{authornamehash}{be126c6199b9061501b012036ed7437b}
+      \strng{authorfullhash}{be126c6199b9061501b012036ed7437b}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Third Edition}
+      \field{title}{The C++ Programming Language}
+      \field{year}{1997}
+    \endentry
+    \entry{WindowsInternals61}{book}{}
       \name{author}{1}{}{%
         {{hash=bf5dc7d841cede99280cfcf149b3c7c1}{%
            family={{Yosifovich, P., Ionescu, A., Russinovich, M.E., Russinovich, D.A.}},
@@ -176,6 +394,9 @@
       }
       \list{location}{1}{%
         {Redmond}%
+      }
+      \list{publisher}{1}{%
+        {Microsoft Press}%
       }
       \strng{namehash}{bf5dc7d841cede99280cfcf149b3c7c1}
       \strng{fullhash}{bf5dc7d841cede99280cfcf149b3c7c1}
@@ -187,8 +408,63 @@
       \field{sortinithash}{b8d711a035f7be9840c721c82920477e}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{edition}{Sixth Edition}
+      \field{title}{Windows Internals, Part 1}
+      \field{year}{2012}
+      \keyw{Windows Internals}
+    \endentry
+    \entry{WindowsInternals}{book}{}
+      \name{author}{1}{}{%
+        {{hash=bf5dc7d841cede99280cfcf149b3c7c1}{%
+           family={{Yosifovich, P., Ionescu, A., Russinovich, M.E., Russinovich, D.A.}},
+           familyi={Y\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Redmond}%
+      }
+      \list{publisher}{1}{%
+        {Microsoft Press}%
+      }
+      \strng{namehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{fullhash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{bibnamehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{authorbibnamehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{authornamehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{authorfullhash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \field{sortinit}{Y}
+      \field{sortinithash}{b8d711a035f7be9840c721c82920477e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Seventh Edition}
       \field{title}{Windows Internals, Part 1: System architecture, processes, threads, memory management, and more}
       \field{year}{2017}
+      \keyw{Windows Internals}
+    \endentry
+    \entry{WindowsInternals62}{book}{}
+      \name{author}{1}{}{%
+        {{hash=bf5dc7d841cede99280cfcf149b3c7c1}{%
+           family={{Yosifovich, P., Ionescu, A., Russinovich, M.E., Russinovich, D.A.}},
+           familyi={Y\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Redmond}%
+      }
+      \list{publisher}{1}{%
+        {Microsoft Press}%
+      }
+      \strng{namehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{fullhash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{bibnamehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{authorbibnamehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{authornamehash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \strng{authorfullhash}{bf5dc7d841cede99280cfcf149b3c7c1}
+      \field{sortinit}{Y}
+      \field{sortinithash}{b8d711a035f7be9840c721c82920477e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Sixth Edition}
+      \field{title}{Windows Internals, Part 2}
+      \field{year}{2012}
       \keyw{Windows Internals}
     \endentry
   \enddatalist

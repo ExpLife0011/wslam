@@ -66,7 +66,11 @@
         the minifilter APIs. For example, the callback for process notification has no context parameter, making it impossible to access
         any other component, except through singleton classes.
 
-        \subsection{Process Filter}
+        This architecture is based on the single responsability principle, which states that a given method/class/component should have a
+        single reason to change\cite{CleanCode}. Every component is self contained and self sufficient in order to be easily testable and
+        maintainable.
+
+        \subsection{Process Filter and Process Collector}
         The process filter is a stateful component, in the snese that the filter can be enabled or disabled, and responsible for registering
         the callback for process creation and termination notifications. It contains the logic for deciding whether or not a process should be
         monitored.
@@ -85,7 +89,7 @@
             \item IRP\textunderscore MJ\textunderscore CREATE
             \item IRP\textunderscore MJ\textunderscore WRITE
         \end{itemize}
-        
+
     \section{Integration Architecture}
     The SDK integration logic is encapsulated into a wslamss .NET Windows service application and is the juncture between the SDK and any 
     client application which would serve as a user interface.
@@ -99,6 +103,27 @@
     net.tcp://localhost:8000/mex. The metadata exchange endpoint is done via SOAP messages that contain various information that describes
     the service, such as: available operations, parameter types, return types, callbacks that need to be implemented, etc. In other words,
     the metadata exchange endpoint exposes the WCF contract implemented by the service.
+
+    \paragraph{}
+    The settings, detection history and any other persistent data is saved in a local databse that is managed with the help of SQLite
+    database management system and .NET EntityFramework. This was the prefered choice as it doesn't require any special configuration on
+    the user's machine. The only requirement is for the SQLite .NET assemblies to be present in the PATH enviromental variable so they can
+    be loaded by the service.
+
+    Throughout the service application, we have two types of persistent data:
+    \begin{itemize}
+        \item detections history
+        \item current settings
+    \end{itemize}
+
+    All this data is managed by the classes described below:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=300px, keepaspectratio]{img/storage_diagram.png}
+        \caption{Data Persistence Diargram}
+        \label{fig:storage_diagram}
+    \end{figure}
 
     
 

@@ -102,7 +102,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.2}SDK Architecture}{12}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.1}Process Filter}{13}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.1}Process Filter and Process Collector}{13}{subsection.4.2.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.2.2}File Filter}{13}{subsection.4.2.2}
 \defcounter {refsection}{0}\relax 
@@ -110,106 +110,116 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{13}{paragraph*.25}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Implementation Details}{14}{chapter.5}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Activity Monitoring}{14}{section.5.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.1}Process Monitoring}{14}{subsection.5.1.1}
-\defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{14}{paragraph*.26}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{14}{paragraph*.27}
+\contentsline {chapter}{\numberline {5}Implementation Details}{15}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Activity Monitoring}{15}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1.1}Process Monitoring}{15}{subsection.5.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{15}{paragraph*.27}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{15}{paragraph*.28}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.2}File System Activity Monitoring}{15}{subsection.5.1.2}
+\contentsline {paragraph}{}{16}{paragraph*.29}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{15}{paragraph*.29}
+\contentsline {subsection}{\numberline {5.1.2}File System Activity Monitoring}{16}{subsection.5.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{15}{paragraph*.30}
+\contentsline {paragraph}{}{16}{paragraph*.30}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{15}{paragraph*.31}
+\contentsline {paragraph}{}{16}{paragraph*.31}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Communication}{16}{section.5.2}
+\contentsline {section}{\numberline {5.2}Communication}{17}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{16}{paragraph*.32}
+\contentsline {paragraph}{}{17}{paragraph*.32}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{16}{paragraph*.33}
+\contentsline {paragraph}{}{17}{paragraph*.33}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Application Tracing and Instrumentation}{16}{section.5.3}
+\contentsline {section}{\numberline {5.3}Detection Flow}{17}{section.5.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{17}{paragraph*.34}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Testing}{18}{chapter.6}
+\contentsline {section}{\numberline {5.4}C++ Memory Allocation Framework in the Kernel}{18}{section.5.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{18}{paragraph*.35}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Whitebox Testing}{18}{section.6.1}
+\contentsline {paragraph}{}{19}{paragraph*.36}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{18}{paragraph*.36}
+\contentsline {section}{\numberline {5.5}Application Tracing and Instrumentation}{19}{section.5.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{18}{paragraph*.37}
+\contentsline {paragraph}{}{19}{paragraph*.37}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{18}{paragraph*.38}
+\contentsline {chapter}{\numberline {6}Testing}{20}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Blackbox testing}{19}{section.6.2}
+\contentsline {paragraph}{}{20}{paragraph*.38}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.3}Static Code Analysis}{19}{section.6.3}
+\contentsline {section}{\numberline {6.1}Whitebox Testing}{20}{section.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{19}{paragraph*.39}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.4}WHQL Testing}{19}{section.6.4}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Heuristics and Detection Algorithms}{20}{chapter.7}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.1}Privilege Escalation Detection}{20}{section.7.1}
+\contentsline {paragraph}{}{20}{paragraph*.39}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{20}{paragraph*.40}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{20}{paragraph*.41}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{20}{paragraph*.42}
+\contentsline {section}{\numberline {6.2}Blackbox testing}{21}{section.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{21}{paragraph*.43}
+\contentsline {section}{\numberline {6.3}Static Code Analysis}{21}{section.6.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{21}{paragraph*.44}
+\contentsline {paragraph}{}{21}{paragraph*.42}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{21}{paragraph*.45}
+\contentsline {section}{\numberline {6.4}WHQL Testing}{21}{section.6.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{21}{paragraph*.46}
+\contentsline {chapter}{\numberline {7}Heuristics and Detection Algorithms}{22}{chapter.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{21}{paragraph*.47}
+\contentsline {section}{\numberline {7.1}Privilege Escalation Detection}{22}{section.7.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{22}{paragraph*.48}
+\contentsline {paragraph}{}{22}{paragraph*.43}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.2}File Infectors and Droppers Detection}{22}{section.7.2}
+\contentsline {paragraph}{}{22}{paragraph*.44}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{22}{paragraph*.49}
+\contentsline {paragraph}{}{22}{paragraph*.45}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{22}{paragraph*.50}
+\contentsline {paragraph}{}{23}{paragraph*.46}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{22}{paragraph*.51}
+\contentsline {paragraph}{}{23}{paragraph*.47}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {8}Possible improvements}{23}{chapter.8}
+\contentsline {paragraph}{}{23}{paragraph*.48}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.1}Performance}{23}{section.8.1}
+\contentsline {paragraph}{}{23}{paragraph*.49}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.2}Detection}{23}{section.8.2}
+\contentsline {paragraph}{}{23}{paragraph*.50}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{23}{paragraph*.52}
+\contentsline {paragraph}{}{24}{paragraph*.51}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{23}{paragraph*.53}
+\contentsline {section}{\numberline {7.2}File Infectors and Droppers Detection}{24}{section.7.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.3}Reverting malicious actions}{24}{section.8.3}
+\contentsline {paragraph}{}{24}{paragraph*.52}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.4}Network Filtering}{24}{section.8.4}
+\contentsline {paragraph}{}{24}{paragraph*.53}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.5}User-Mode Hooking Framework}{24}{section.8.5}
+\contentsline {paragraph}{}{24}{paragraph*.54}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {9}Conclusion}{25}{chapter.9}
+\contentsline {chapter}{\numberline {8}Possible improvements}{25}{chapter.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{}{25}{paragraph*.54}
+\contentsline {section}{\numberline {8.1}Performance}{25}{section.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.2}Detection}{25}{section.8.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{}{25}{paragraph*.55}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{References}{26}{chapter*.56}
+\contentsline {paragraph}{}{25}{paragraph*.56}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.3}Reverting malicious actions}{26}{section.8.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.4}Network Filtering}{26}{section.8.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.5}User-Mode Hooking Framework}{26}{section.8.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {9}Conclusion}{27}{chapter.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{27}{paragraph*.57}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{}{27}{paragraph*.58}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{References}{28}{chapter*.59}

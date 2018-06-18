@@ -1,16 +1,16 @@
 [0] Config.pm:302> INFO - This is Biber 2.10
 [0] Config.pm:305> INFO - Logfile is 'wsl.blg'
-[63] biber-MSWIN32:313> INFO - === 
-[114] Biber.pm:371> INFO - Reading 'wsl.bcf'
-[270] Biber.pm:854> INFO - Using all citekeys in bib section 0
-[302] Biber.pm:3976> INFO - Processing section 0
-[326] Biber.pm:4136> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
-[329] bibtex.pm:1444> INFO - Reading ascii input as UTF-8
-[332] bibtex.pm:1490> INFO - LaTeX decoding ...
+[50] biber-MSWIN32:313> INFO - === 
+[101] Biber.pm:371> INFO - Reading 'wsl.bcf'
+[286] Biber.pm:854> INFO - Using all citekeys in bib section 0
+[304] Biber.pm:3976> INFO - Processing section 0
+[321] Biber.pm:4136> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
+[323] bibtex.pm:1444> INFO - Reading ascii input as UTF-8
+[327] bibtex.pm:1490> INFO - LaTeX decoding ...
 [360] bibtex.pm:1306> INFO - Found BibTeX data source 'bibliography.bib'
-[424] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[424] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[425] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[425] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[436] bbl.pm:617> INFO - Writing 'wsl.bbl' with encoding 'ascii'
-[442] bbl.pm:720> INFO - Output to wsl.bbl
+[479] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[479] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[480] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[481] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[504] bbl.pm:617> INFO - Writing 'wsl.bbl' with encoding 'ascii'
+[513] bbl.pm:720> INFO - Output to wsl.bbl
