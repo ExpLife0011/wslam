@@ -1,7 +1,7 @@
 \chapter{Introduction}
     With the release of Windows Subsystem for Linux (WSL) in the "Redstone 1" version of Windows 10, consisting of two new kernel-mode drivers,
-    lxcore.sys and lxss.sys, which implement more than  200 linux system calls, a new service, LxssManager, and other user mode components.
-    This opened up a new attack surface, one that was not covered by monitoring tools untill recent, and doesn't seem to be covered by
+    lxcore.sys and lxss.sys, which implement more than  200 Linux system calls, a new service, LxssManager, and other user mode components.
+    This opened up a new attack surface, one that was not covered by monitoring tools until recent, and doesn't seem to be covered by
     anti-virus vendors.
 
     WSL provides a way of executing native 64 bit Linux binaries, also known as ELF64 files, on Windows 10. Since WSL is not virtualization
@@ -20,7 +20,7 @@
         The main objective is to provide a partial solution to this new security problem. It should defend a system from bashware,
         suspicious interaction between WSL processes and Windows processes and to provide system administrators with enough logs to properly
         respond to incidents, while not disrupting the user experience. The monitoring and detection system had to be self contained in
-        a software development kit (SDK), in order to be easily integrable by any third party AV vendors.
+        a software development kit (SDK), so it can be easily integrated by any third party AV vendors.
 
     \section{Personal Contributions}
         My personal contributions towards monitoring and detecting malicious applications that leverage WSL are comprised of a few behavioral
@@ -45,6 +45,6 @@
         The third part consists of chapter 7 and will be dedicated to describing the detection algorithms logic and what steps I followed in
         creating them, as well as some implementation details and limitations.
 
-        Lastly, chapter 8 will show possible developement directions for this project, how the current monitoring solution can be improved and
+        Lastly, chapter 8 will show possible development directions for this project, how the current monitoring solution can be improved and
         how it could be extended to achieve more in-depth monitoring and more accurate detection.
         

@@ -32,7 +32,7 @@ namespace WslFlt
     template <typename _Ty>
     struct TypeTraits
     {
-        static constexpr ULONG Tag = LIB_TAG_DEFAULT;
+        static constexpr ULONG Tag = WSLFLT_TAG_DEFAULT;
         static constexpr POOL_TYPE PoolType = PagedPool;
         static constexpr LONG NumberOfCachableElements = DEFAULT_NUMBER_OF_CACHABLE_ELEMENTS;
     };

@@ -2,11 +2,11 @@
     \section{High Level Overview}
         The system is composed of 2 main components
         \begin{itemize}
-            \item wslmon - an sdk that contains the detection logic as well as communication logic between kernel-mode and user-mode
+            \item wslmon - an SDK that contains the detection logic as well as communication logic between kernel-mode and user-mode
             \item wslam - the integrator
         \end{itemize}
 
-        Below we can see a high level overview of the sdk and integrator components and how they can interract.
+        Below we can see a high level overview of the SDK and integrator components and how they can interract.
         
         \begin{figure}[H]
             \includegraphics[width=360px, keepaspectratio]{img/high_level_overview_diagram.png}
@@ -32,7 +32,7 @@
         process filter, file filter, event dispatcher, the communication framework and the detection heuristics.
 
         \paragraph{wslcore.dll}
-        is meant to ease the integration process of the sdk by third party anti-virus vendors. It offers an interface for controlling the driver
+        is meant to ease the integration process of the SDK by third party anti-virus vendors. It offers an interface for controlling the driver
         state (enable/disable monitoring) as well as callback registration for several events (i.e detection).
 
     \subsection{wslam}
@@ -71,13 +71,13 @@
         maintainable.
 
         \subsection{Process Filter and Process Collector}
-        The process filter is a stateful component, in the snese that the filter can be enabled or disabled, and responsible for registering
-        the callback for process creation and termination notifications. It contains the logic for deciding whether or not a process should be
-        monitored.
+        The process filter is a stateful component, meaning that the filter can be enabled or disabled, and is responsible for registering
+        the callback for process creation and termination notifications. It contains the logic for deciding whether a process should be
+        monitored or not.
 
-        It also contains a process collector, which is used as a databse of active processes, internally represented by instaces of the Process
+        It also contains a process collector, which is used as a database of active processes, internally represented by instaces of the Process
         class. A Process object holds the needed information for uniquely identifying the process throughout it's lifetime as well as other
-        information useful for behavioral analysis, like the parent process, security token or commandline.
+        information useful for behavioral analysis, like the parent process, security token or command line.
 
         \subsection{File Filter}
         The file filter is also a stateful and singleton component. It's responsible for providing the IRP filtering callbacks and analyzing
@@ -94,9 +94,9 @@
     The SDK integration logic is encapsulated into a wslamss .NET Windows service application and is the juncture between the SDK and any 
     client application which would serve as a user interface.
 
-    This architecture makes the integration project highly extensible, allowing the developement of a central application that can monitor
+    This architecture makes the integration project highly extensible, allowing the development of a central application that can monitor
     reported incidents and other events from multiple clients (systems with the anti-malware solution installed). For example, this could be
-    useful for the network administrators or security reposibles in business enviroments, allowing for faster incident response.
+    useful for the network administrators or security reposibles in business environments, allowing for faster incident response.
     
     \paragraph{}
     The service has an external-facing WCF interface which is accessible trhough the net.tcp://localhost:8000. The metadata is available at
@@ -105,9 +105,9 @@
     the metadata exchange endpoint exposes the WCF contract implemented by the service.
 
     \paragraph{}
-    The settings, detection history and any other persistent data is saved in a local databse that is managed with the help of SQLite
-    database management system and .NET EntityFramework. This was the prefered choice as it doesn't require any special configuration on
-    the user's machine. The only requirement is for the SQLite .NET assemblies to be present in the PATH enviromental variable so they can
+    The settings, detection history and any other persistent data is saved in a local database that is managed with the help of SQLite
+    database management system and .NET EntityFramework. This was the preferred choice as it doesn't require any special configuration on
+    the user's machine. The only requirement is for the SQLite .NET assemblies to be present in the PATH environmental variable so they can
     be loaded by the service.
 
     Throughout the service application, we have two types of persistent data:
@@ -121,7 +121,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=300px, keepaspectratio]{img/storage_diagram.png}
-        \caption{Data Persistence Diargram}
+        \caption{Data Persistence Diagram}
         \label{fig:storage_diagram}
     \end{figure}
 

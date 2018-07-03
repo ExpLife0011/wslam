@@ -4,6 +4,7 @@
     \usepackage{listings}
     \usepackage[dvipsnames]{xcolor}
     \usepackage{fancyvrb}
+    \usepackage[utf8]{inputenc}
     \usepackage{titlesec}
     \usepackage[sorting=nty]{biblatex}
     \usepackage{tocloft}
@@ -14,6 +15,8 @@
     \usepackage[a4paper,left=3cm,top=2cm,right=3cm,bottom=3cm]{geometry}
     \usepackage{indentfirst}
     \usepackage{placeins}
+    \usepackage{etoolbox}
+
     
     \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
     \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
@@ -65,88 +68,91 @@
     \begin{document}
 
     \newgeometry{margin=0.9in}
+
+    \pagestyle{empty}
     \begin{titlepage}
 
-    \begin{center}
-    {\Large BABEŞ-BOLYAI UNIVERSITY CLUJ-NAPOCA}
+        \begin{center}
+        {\Large UNIVERSITATEA BABEŞ-BOLYAI CLUJ-NAPOCA}
+        \end{center}
+    
+        \begin{center}
+        {\Large FACULTATEA DE MATEMATICǍ ŞI INFORMATICǍ}
+        \end{center}
+    
+        \begin{center}
+        {\Large SPECIALIZAREA ÎN INFORMATICǍ}
+        \end{center}
+    
+        \vfill
+    
+        \begin{center}
+        {\LARGE LUCRARE DE LICENŢĂ}
+        \end{center}
+    
+        \begin{center}
+        {\Huge O Abordare Bazată pe Analiza Comportamentală în Detecția de Bashware}
+        \end{center}
+    
+        \vfill
+    
+        \begin{flushleft}
+        {\LARGE Conducător ştiinţific  \\ Dr. DRAGOŞ Radu, Lector}
+        \end{flushleft}
+    
+        \begin{flushright}
+        {\Large Absolvent \\ MERMEZE Andrei}
+        \end{flushright}
+    
+        \vfill
+    
+        \begin{center}
+        {\LARGE 2018}
+        \end{center}
+
+        \pagebreak
+
+        \begin{center}
+        {\Large BABEŞ-BOLYAI UNIVERSITY CLUJ-NAPOCA}
+        \end{center}
+
+        \begin{center}
+        {\Large FACULTY OF MATHEMATICS AND COMPUTER SCIENCE}
+        \end{center}
+
+        \begin{center}
+        {\Large SPECIALIZATION IN COMPUTER SCIENCE}
+        \end{center}
+
+        \vfill
+
+        \begin{center}
+        {\LARGE DIPLOMA THESIS}
+        \end{center}
+
+        \begin{center}
+        {\Huge A Behavioral Analysis Approach on Bashware Detection}
+        \end{center}
+
+        \vfill
+
+        \begin{flushleft}
+        {\LARGE Supervisor \\ PhD. DRAGOŞ Radu, Lecturer}
+        \end{flushleft}
+
+        \begin{flushright}
+        {\Large Author \\ MERMEZE Andrei}
+        \end{flushright}
+
+        \vfill
+
+        \begin{center}
+        {\LARGE 2018}
     \end{center}
-
-    \begin{center}
-    {\Large FACULTY OF MATHEMATICS AND COMPUTER SCIENCE}
-    \end{center}
-
-    \begin{center}
-    {\Large SPECIALIZATION IN COMPUTER SCIENCE}
-    \end{center}
-
-    \vfill
-
-    \begin{center}
-    {\LARGE DIPLOMA THESIS}
-    \end{center}
-
-    \begin{center}
-    {\Huge A Behavioral Analysis Approach on Bashware Detection}
-    \end{center}
-
-    \vfill
-
-    \begin{flushleft}
-    {\LARGE Supervisor \\ PhD. DRAGOS Radu, Lecturer}
-    \end{flushleft}
-
-    \begin{flushright}
-    {\Large Author \\ MERMEZE Andrei}
-    \end{flushright}
-
-    \vfill
-
-    \begin{center}
-    {\LARGE 2018}
-    \end{center}
-
-    \pagebreak
-
-    % \begin{center}
-    %     {\Large UNIVERSITATEA BABEŞ-BOLYAI CLUJ-NAPOC}
-    %     \end{center}
-    
-    %     \begin{center}
-    %     {\Large FACULTATEA DE MATEMATICǍ ŞI INFORMATICǍ}
-    %     \end{center}
-    
-    %     \begin{center}
-    %     {\Large SPECIALIZATION IN INFORMATICǍ}
-    %     \end{center}
-    
-    %     \vfill
-    
-    %     \begin{center}
-    %     {\LARGE LUCRARE DE LICENŢĂ}
-    %     \end{center}
-    
-    %     \begin{center}
-    %     {\Huge O Abordare Bazată pe Analiza Comportamentală în Detecția Bashware}
-    %     \end{center}
-    
-    %     \vfill
-    
-    %     \begin{flushleft}
-    %     {\LARGE Supervisor \\ PhD. DRAGOS Radu, Lecturer}
-    %     \end{flushleft}
-    
-    %     \begin{flushright}
-    %     {\Large Author \\ MERMEZE Andrei}
-    %     \end{flushright}
-    
-    %     \vfill
-    
-    %     \begin{center}
-    %     {\LARGE 2018}
-    %     \end{center}
 
     \end{titlepage}
     \restoregeometry
+    \pagestyle{plain}
 
     \pagenumbering{Roman}
     
@@ -154,6 +160,7 @@
     \tableofcontents
     \pagebreak
 
+    
     \pagenumbering{arabic}
 
     \include{chap1}

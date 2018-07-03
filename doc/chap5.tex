@@ -4,12 +4,12 @@
 
     \section{Activity Monitoring}
 
-    Monitoring activity from a minifilter driver is the most reliable way of monitoring and blocking potentially malicious linux applications.
+    Monitoring activity from a minifilter driver is the most reliable way of monitoring and blocking potentially malicious Linux applications.
     Unlike a user-mode hooking framework approach, using a minifilter driver provides mechanisms of monitoring that cannot be bypassed or tampered
     with by the monitored processes, making it a very reliable and secure approach.
 
     \subsection{Process Monitoring}
-        Process monitorig refers to getting synchronous notifications on both process creation and process termination in order to keep track
+        Process monitoring refers to getting synchronous notifications on both process creation and process termination in order to keep track
         of the currently active processes and process hierarchy.
 
         \paragraph{}
@@ -18,7 +18,7 @@
         SubsystemInformationTypeWSL information type on the process' handle and check that the subsystem type is SubsystemInformationTypeWSL.
 
         \paragraph{}
-        All monitored processes are stored in a structure named "Process Collector". We monitor only Linux processes and windows processes that
+        All monitored processes are stored in a structure named "Process Collector". We monitor only Linux processes and Windows processes that
         have their parent process in the collector. The second condition is needed because we have to monitor Windows processes that are started
         by Linux processes.
 
@@ -61,7 +61,7 @@
 
     \paragraph{}
     After registering the callbacks above, for every IRP\textunderscore MJ\textunderscore CREATE IRP (I/O request packet), "PreCreateCallback"
-    will be called before actually doing the operation, giving us the oportunity to skip the post callback call if needed, and
+    will be called before actually doing the operation, giving us the opportunity to skip the post callback call if needed, and
     "PostCreateCallback" will be called after the operation was completed, giving us information about the completion status, used file object,
     etc.
 
@@ -74,7 +74,7 @@
     field can be either KernelMode or UserMode, telling us whether the IRP was issued by the kernel or not. Traditionally, most AV-solutions
     would skip KernelMode IRPs, as they would not be important.
     
-    This was one of the issues that came along with WSL, as linux processes, not knowing of the Windows kernel, can't issue IRPs by their own.
+    This was one of the issues that came along with WSL, as Linux processes, not knowing of the Windows kernel, can't issue IRPs by their own.
     Instead, the pico provider (lxcore.sys) issues them, therefore the IRPs have  RequestorMode equal to KernelMode. However, the requestor PID
     is that of the actual process that started the I/O operation, therefore the IRP filtering algorithm would filter KernelMode IRPs too, if
     and only if the requestor PID is different than system process PID.
@@ -106,7 +106,7 @@
         side are done through an service contract interface.
 
         For now, the service provides only one type of notification, which is the process detected notification, which is listened to by the GUI
-        aplication in order to send a toast notification to the system, informing the user of the detection.
+        application in order to send a toast notification to the system, informing the user of the detection.
         The requests that the service can resolve are:
         
         \begin{itemize}
@@ -121,7 +121,7 @@
         to the GUI Application and toast notification.
         
         \paragraph{}
-        The kernel driver is reponsible for issuing the detection and stopping the malicious process. After doing this the user mode system
+        The kernel driver is responsible for issuing the detection and stopping the malicious process. After doing this the user mode system
         service is informed through the filter port. The system service relays the detection information to the GUI application through the WCF
         endpoint. Finally, a toast notification is displayed in order to inform the user of the detection.
 
@@ -132,7 +132,7 @@
             \label{fig:detection}
         \end{figure}
 
-        Clicking the notifications brings the application to front and selects the detections tabs, so that the user can see more information
+        Clicking the notifications brings the application to front and selects the detections tab, so that the user can see more information
         about the detection.
 
 
@@ -149,7 +149,7 @@
 
         \paragraph{}
         The problem that rises is integrating this API with C++ "new" operator. This can be done by defining a custom "new" operator which takes
-        the aditional parameters and overload the default "new" operator to use the ExAllocatePoolWithTag API.
+        the additional parameters and overload the default "new" operator to use the ExAllocatePoolWithTag API.
 
         The additional "new" operator would use a C++ specific concept called "traits"\cite{EffectiveModernCpp}. A traits class is usually a small
         class that stores information about implementation details and policies and provides it to other objects or algorithms. These are usually
@@ -186,7 +186,7 @@
 
     \section{Application Tracing and Instrumentation}
         In order to ease debugging and identifying issues in production code, it is important for the code to be properly traced with relevant
-        and meaningful log messages, without easing the reverse engineering process by havin the log message strings in the executable. All of
+        and meaningful log messages, without easing the reverse engineering process by having the log message strings in the executable. All of
         this can be achieved by using Windows software trace preprocessor (WPP), a framework based on Event Tracing for Windows. This way, 
         log messages can't be decoded without having the traced application symbols, which are stored in pdb files.
 

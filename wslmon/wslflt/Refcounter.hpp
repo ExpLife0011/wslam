@@ -32,7 +32,7 @@ namespace WslFlt
     {
         static constexpr ULONG Tag = WSLFLT_TAG_RFC;
         static constexpr POOL_TYPE PoolType = PagedPool;
-        static constexpr LONG NumberOfCachableElements = DEFAULT_NUMBER_OF_CACHABLE_ELEMENTS;
+        static constexpr LONG NumberOfCachableElements = 0;
     };
 }
 

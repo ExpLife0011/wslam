@@ -4,11 +4,11 @@
   <bcf:options component="biber" type="global">
     <bcf:option type="singlevalued">
       <bcf:key>output_encoding</bcf:key>
-      <bcf:value>ascii</bcf:value>
+      <bcf:value>utf8</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>input_encoding</bcf:key>
-      <bcf:value>ascii</bcf:value>
+      <bcf:value>utf8</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>debug</bcf:key>
@@ -1933,13 +1933,14 @@
     <bcf:citekey order="8">execve</bcf:citekey>
     <bcf:citekey order="9">ASADMATT</bcf:citekey>
     <bcf:citekey order="10">jacob2008behavioral</bcf:citekey>
-    <bcf:citekey order="11">TheCppProgrammingLanguage</bcf:citekey>
-    <bcf:citekey order="12">CleanCode</bcf:citekey>
-    <bcf:citekey order="13">WindowsInternals62</bcf:citekey>
-    <bcf:citekey order="14">EffectiveModernCpp</bcf:citekey>
-    <bcf:citekey order="15">execve</bcf:citekey>
-    <bcf:citekey order="16">Bulazel</bcf:citekey>
-    <bcf:citekey order="17">Barham</bcf:citekey>
+    <bcf:citekey order="11">jacob2008behavioral</bcf:citekey>
+    <bcf:citekey order="12">TheCppProgrammingLanguage</bcf:citekey>
+    <bcf:citekey order="13">CleanCode</bcf:citekey>
+    <bcf:citekey order="14">WindowsInternals62</bcf:citekey>
+    <bcf:citekey order="15">EffectiveModernCpp</bcf:citekey>
+    <bcf:citekey order="16">execve</bcf:citekey>
+    <bcf:citekey order="17">Bulazel</bcf:citekey>
+    <bcf:citekey order="18">Barham</bcf:citekey>
     <bcf:citekey order="0">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->

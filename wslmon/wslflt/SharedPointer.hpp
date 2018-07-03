@@ -16,6 +16,9 @@ namespace WslFlt
         using PointerType   = _Ty*;
         using Traits        = TypeTraits<Type>;
 
+        template<class _OhterType>
+        friend class SharedPointer;
+
 
         template <typename ... Args>
         SharedPointer(
@@ -23,20 +26,22 @@ namespace WslFlt
         )
         {
             void* mem = ::operator new(sizeof(Refcounter) + sizeof(_Ty), Traits::PoolType, Traits::Tag);
-            _Refcounter = ::new(mem) Refcounter();
-            _Obj = ::new(static_cast<char *>(mem) + sizeof(Refcounter)) _Ty{ WslFlt::Forward<Args>(Arguments) ... };
+            _Obj = new(static_cast<char *>(mem)) _Ty{ WslFlt::Forward<Args>(Arguments) ... };
+            _Refcounter = new(mem + sizeof(_Ty)) Refcounter();
             _DeleteBoth = true;
             
         }
 
-        constexpr
-        SharedPointer(){}
+        SharedPointer()
+            : _Obj{ nullptr }, _Refcounter{ nullptr }, _DeleteBoth{ false }
+        {}
 
         SharedPointer(
             _In_ _Ty* Object
         )
         {
-            _Refcounter = new Refcounter{};
+            auto rfc = ::operator new(sizeof(Refcounter), TypeTraits<_Ty>::PoolType, TypeTraits<Refcounter>::Tag);
+            _Refcounter = new((void*)rfc) Refcounter {};
             _Obj = Object;
             _DeleteBoth = false;
         }
@@ -61,9 +66,9 @@ namespace WslFlt
             _In_ SharedPointer<_OtherType>& Other
         )
         {
-            Other.Reference();
-            _Obj = reinterpret_cast<_Ty>(Other->GetWeakReference());
-            _Refcounter = Other._Refcounter;
+            Reference(Other);
+            //_Obj = reinterpret_cast<_Ty*>(Other.GetWeakReference());
+            //_Refcounter = Other._Refcounter;
         }
 
         void
@@ -150,10 +155,17 @@ namespace WslFlt
             Release();
         }
 
+        void
+        IncrementReferences()
+        {
+            _Refcounter->Reference();
+        }
+
     private:
+        template <typename _OtherType>
         void
         Reference(
-            _In_ SharedPointer<_Ty>& Pointer
+            _In_ SharedPointer<_OtherType>& Pointer
         )
         {
             if (Pointer._Refcounter)
@@ -161,6 +173,7 @@ namespace WslFlt
                 Pointer._Refcounter->Reference();
                 _Obj = Pointer.GetWeakReference();
                 _Refcounter = Pointer._Refcounter;
+                _DeleteBoth = Pointer._DeleteBoth;
             }
         }
 
@@ -176,12 +189,12 @@ namespace WslFlt
             }
             else
             {
-                delete _Refcounter;
+                ::operator delete((void *)_Refcounter, TypeTraits<Refcounter>::Tag);
                 delete _Obj;
             }
         }
 
-        Refcounter* _Refcounter;
+        mutable Refcounter* _Refcounter;
         _Ty* _Obj;
         bool _DeleteBoth;
     };
@@ -194,7 +207,7 @@ namespace WslFlt
         Args&& ... Arguments
     )
     {
-        return SharedPointer<Type>(static_cast<Args&&>(Arguments) ...);
+        return SharedPointer<Type>(WslFlt::Forward<Args>(Arguments) ...);
     }
 
     template<typename _Ty1, typename _Ty2>

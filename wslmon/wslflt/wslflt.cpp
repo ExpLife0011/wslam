@@ -3,6 +3,7 @@
 #include "staticclassessupport.h"
 #include "wslflt_trace.h"
 #include "wslflt.cpp.tmh"
+#include "WslFilter.hpp"
 
 #pragma prefast(disable:__WARNING_ENCODE_MEMBER_FUNCTION_POINTER, "Not valid for kernel mode drivers")
 
@@ -61,6 +62,5 @@ Returns STATUS_SUCCESS.
     //
     // Actual filter registration is done here.
     //
-    //return WslFlt::WslFilter::Instance().Initialize(DriverObject, RegistryPath);
-    return STATUS_SUCCESS;
+    return WslFlt::WslFilter::Instance().Initialize(DriverObject, RegistryPath);
 }

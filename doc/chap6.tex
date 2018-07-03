@@ -1,41 +1,41 @@
 \chapter{Testing}
     \paragraph{}
     Rigorous testing, especially in the context of kernel-mode modules and security solutions, is essential in order to provide a stable,
-    usable and efficient product. Combining whitebox and blackbox techniques together with test driven developement paradigms throughout
+    usable and efficient product. Combining white box and black box techniques together with test driven developemnt paradigms throughout
     the development of a product is crucial in order to offer a high quality product.
     
     \section{Whitebox Testing}
         \paragraph{}
-        In order to use the Test Driven Development paradigm, a whitebox unit testing framework was required. The unit test project contains
+        In order to use the Test Driven Development paradigm, a white box unit testing framework was required. The unit test project contains
         mock definitions of kernel functions (e.g. ExAllocatePoolWithTag), and unit tests for each class. Mocking kernel functions helped in
-        achieving high coverage of the driver code in a user-mode enviroment, thus saving development time. Moreover, these uni ttests can be
+        achieving high coverage of the driver code in a user-mode environment, thus saving development time. Moreover, these unit tests can be
         easily configured to run at each solution build, making it a very reliable and easy to use continuous integration tool.
         
         \paragraph{}
         The other alternative was having another kernel-mode driver that would test the API exported by wslflt.sys. This is an unreliable
-        and slow testing method because most bugs would cause a blue screen and can even corrupt the testing enviroment. Moreover, analysing
+        and slow testing method because most bugs would cause a blue screen and can even corrupt the testing environment. Moreover, analysing
         kernel dumps in order to find bugs is a much slower process compared to analysing user-mode crashes or exceptions. Also, building a
         continuous integration system around this testing framework is a lot more complicated because it involves virtual machines,
-        automatiically applying OS images and re-applying them in case a BSOD occurs.
+        automatically applying OS images and re-applying them in case a BSOD occurs.
 
         \paragraph{}
-        In the context of the minifilter driver, whitebox testcases were implemented in order to verify that the Windows kernel APIs are
-        correctly. These verifications include checks for handle leaks and correct error status handling. Moreover The driver's components
+        In the context of the minifilter driver, white box test cases were implemented in order to verify that the Windows kernel APIs are
+        correctly. These verifications include checks for handle leaks and correct error status handling. Moreover, the driver's components
         (i.e. file filter, process collector) are tested individually to confirm that they work correctly. Also, generic framework classes like
         SharedPointer or LookasideObject are covered by unit tests as they are widely used throughout the project.
     
     \pagebreak
 
     \section{Blackbox testing}
-        Blackbox testing, both manual and automated, is the main method of attesting a product's value, usefuleness and correctness regarding
-        the users' needs. I have used blackbox techniques in order to verify both functional (i.e. detection) and non-functional requirements
+        Blackbox testing, both manual and automated, is the main method of attesting a product's value, usefulness and correctness regarding
+        the users' needs. I have used black box techniques in order to verify both functional (i.e. detection) and non-functional requirements
         (i.e. stability, security, reliability).
 
         In order to identify memory or handle leaks, potential deadlocks, incorrect IRP handling, code integrity violation and other potential
-        bugs, all blackbox tests are run with driver verifier enabled for wslft.sys. Using the driver verifier in the testing process helped
+        bugs, all black box tests are run with driver verifier enabled for wslft.sys. Using the driver verifier in the testing process helped
         in building a more robust and stable driver.
 
-        Most blackbox testcases were implemented as bash scripts running in WSL, but some more complex testcases were also implemented
+        Most black box test cases were implemented as bash scripts running in WSL, but some more complex test cases were also implemented
         using powershell.
 
     \section{Static Code Analysis}

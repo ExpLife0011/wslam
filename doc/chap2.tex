@@ -1,16 +1,16 @@
 \chapter{State of the art}
     \section{Windows Subsystem for Linux}
-    Windows Subsystem for Linux (WSL) is a new and complex Windows component which implements a lot of new functionality (linux syscalls),
+    Windows Subsystem for Linux (WSL) is a new and complex Windows component which implements a lot of new functionality (Linux syscalls),
     parsing (ELF files parsing) and is based on existing Windows technologies, like pico providers and pico processes.
     
     This new optional feature was released in version 1607 of Windows 10 \cite{WindowsInternals}, also known as "Redstone 1" or
     "Anniversary Update".
 
         \subsection{Minimal Processes and Pico Processes}
-            A minimal process has no process enviroment-block (PEB), no initial thread, ntdll is not loaded in its memory as it is done
-            for all windows processes, and its address space is empty. However, a minimal process has a security token, a protection level,
+            A minimal process has no process environment-block (PEB), no initial thread, ntdll is not loaded in its memory as it is done
+            for all Windows processes, and its address space is empty. However, a minimal process has a security token, a protection level,
             and a parent. Threads inside a minimal process are called "minimal threads". Similarly to minimal processes, minimal threads
-            have no thread-enviroment block (TEB).
+            have no thread-environment block (TEB).
 
             A pico process is a minimal process, with an associated pico provider, which handles the system calls, exceptions, pico process
             or threads creation and termination.    
@@ -19,11 +19,11 @@
             A pico provider is a kernel driver that implements the required functionalities to handle the pico process events enumerated before.
             Essentially, a pico provider is a custom written kernel module that implements the necessary callbacks to respond to the list of
             possible events (shown earlier) that a Pico process can cause to arise\cite{WindowsInternals}. Drivers can register as pico providers by calling the
-            PsRegisterPicoProvider API, however, calling this API requires that the PspPicoRegistrationDisabledis set to FALSE. This value is
+            PsRegisterPicoProvider API, however, calling this API requires that the PsPicoRegistrationDisabled is set to FALSE. This value is
             set to false before any other third party driver is loaded.
             
             Securing pico providers is done with the help of PatchGuard in order to protect its syscalls handlers. Kernel Patch Protection,
-            also known as PatchGuard, was designed to protect kernel structures from being patched. This renders the classic linux
+            also known as PatchGuard, was designed to protect kernel structures from being patched. This renders the classic Linux
             monitoring solution (syscall hooking) useless, as any attempt to hook the syscalls will result in a Blue Screen of Death (BSOD).
 
 
@@ -47,7 +47,7 @@
             \end{figure}
 
             \subsubsection{Lxss.sys}
-            Lxss.sys is reponsible for initialing the WSL enviroment by calling the LxInitialize function exported by lxcore.sys, as it can be
+            Lxss.sys is responsible for initializing the WSL environment by calling the LxInitialize function exported by lxcore.sys, as it can be
             seen below.
 
             \begin{figure}[H]
@@ -57,7 +57,7 @@
                 \label{fig:lxss}
             \end{figure}
 
-            This being its only responsability, it is currently not of great interest.
+            This being its only responsibility, it is currently not of great interest.
             
             \subsubsection{Lxcore.sys}
             Lxcore is the pico provider driver which implements the Linux-compatible kenel API and ABI, as well as a device object for command
@@ -65,35 +65,35 @@
             multiple file systems.
 
             \paragraph{}
-            Exposes the ADSS communication bus in order to enable communication between Windows applications and linux applications. Windows
-            applications need to register a server on the ADSS using the ILxssSesion COM interface. The linux application has to open the
-            "/dev/lxss" and connect to the server by sending the correct ioctl. This is currently undocumented and undocumented
-            method of communicating between linux and windows processes and is prone to changes.
+            Exposes the ADSS communication bus in order to enable communication between Windows applications and Linux applications. Windows
+            applications need to register a server on the ADSS using the ILxssSesion COM interface. The Linux application has to open the
+            "/dev/lxss" and connect to the server by sending the correct IOCTL. This is currently an undocumented method of communicating
+            between Linux and Windows processes and is prone to changes.
 
             \subsubsection{LxssManager}
             LxssManager is a user-mode service which provides a COM interface and communicates with lxcore through its Device Object
-            (\textbackslash Device\textbackslash Lxss). Is is responsible with starting the init process of a WSL instance and, as shown
+            (\textbackslash Device\textbackslash Lxss). It is responsible with starting the init process of a WSL instance and, as shown
             in \ref{fig:wsl_components}, does so with the help of lxcore through the ADSS bus.
 
             \subsubsection{init}
-            The init daemon process is the well known linux root process (first process started by the kernel), making it the ancestor for
+            The init daemon process is the well known Linux root process (first process started by the kernel), making it the ancestor for
             every other Linux process. A new init daemon process is created for each WSL instance.
 
 
         \subsection{WSL File Systems}
-            Lxcore implements multiple file systems in order to cover well known linux functionality as well as WSL and Windows interoperability.
+            Lxcore implements multiple file systems in order to cover well known Linux functionality as well as WSL and Windows interoperability.
 
 
             \begin{itemize}
                 \item VFS (virtual file system)
                 \item DrvFs for Linux files system that maps Windows drives, LxFs, 
-                \item VolFs for the linux file system
+                \item VolFs for the Linux file system
                 \item ProcFs for /proc
                 \item SysFs for /sys
                 \item TmpFs for /tmp
             \end{itemize}
 
-            VFS provides an interface indepentent of the underlying file system. In this model, all file system operations go through the
+            VFS provides an interface independent of the underlying file system. In this model, all file system operations go through the
             same interface, regardless of the underlying file system type\cite{TheArtOfMemoryForensics}.
 
             \begin{figure}[H]
@@ -102,18 +102,18 @@
                 \label{fig:wsl_file_system}
             \end{figure}
 
-            As can be seen in \ref{fig:wsl_file_system}, VolFs and and DrvFs operations actually redirected to the Windows kernel after some
+            As can be seen in \ref{fig:wsl_file_system}, VolFs and DrvFs operations actually redirected to the Windows kernel after some
             pre processing, while the requests for the other file systems are resolved by lxcore.
         
         \subsection{Security Issues}
             When WSL was first released, multiple monitorinig and analysis tools encountered issues in identifying and displaying information
-            about Linux processes. For example, as it can be seen in the following picture, procmon had issues displaying the commandline a process
-            was started with:
+            about Linux processes. For example, as it can be seen in the following picture, procmon had issues displaying the command line a
+            process was started with:
 
             \begin{figure}[!htp]
                 \centering
                 \includegraphics[width=300px, keepaspectratio]{img/procmon.png}
-                \caption{commandline for "touch file"}
+                \caption{command line for "touch file"}
                 \label{fig:procmon}
             \end{figure}
 
@@ -139,8 +139,8 @@
             the exploit proof of concept copies the system security token over another process' security token, elevating it at runtime.
 
         \subsection{File Infector}
-            A WSL file infector would essentially inject into windows executable files, altering the code in order to deliver some malicious
-            code. Even though this can generally be prevented by software developers by signing their binaries, assuring that, if loaded, were
+            A WSL file infector would essentially inject into Windows executable files, altering the code in order to deliver some malicious
+            payload. Even though this can generally be prevented by software developers by signing their binaries, assuring that, if loaded, were
             not tampered with, unsigned binaries still exist and are vulnerable to being hijacked.
             
         \subsection{Local Denial of Service}
@@ -148,7 +148,7 @@
             the machine, crashes, freezes, essentially preventing the user from using the machine.
 
             \paragraph{}
-            While experimenting with Event Tracing for Windows (ETW) I've found a way of consistently causeing lxcore.sys to run into a BSOD, 
+            While experimenting with Event Tracing for Windows (ETW) I've found a way of consistently causing lxcore.sys to run into a BSOD, 
             due to an access violation exception. This can be triggerd from a normal process with no admin rights. I will not go into more 
             detail about this yet, as it would not respect the responsible disclosure policy, since it wasn't yet fixed by Microsoft. Releasing
             information about how to trigger this local denial of service attack could cause exploitation in the wild.
@@ -163,7 +163,7 @@
         the malware code is encrypted or if the malware modifies its code at runtime. This leaves the user vulnerable to new "0-day" threats. 
 
         \paragraph{}
-        As stated in \citetitle{jacob2008behavioral}, a behavioral detector needs to monitor the actions of a program and identify actions
+        As stated in \citetitle{jacob2008behavioral}\cite{jacob2008behavioral}, a behavioral detector needs to monitor the actions of a program and identify actions
         which betray a malicious intent or activity. In the past, interrupt filtering was the main method of gathering information about a
         program's behavior. Later it was replaced by hooking system calls (Linux or older Windows version). The modern approach of intercepting
         a program's actions on Windows systems is to use technologies and APIs that reside in the operating system. For example, using a

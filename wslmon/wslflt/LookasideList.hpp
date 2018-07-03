@@ -2,6 +2,7 @@
 #define _LOOKASIDE_LIST_HPP_
 
 #include <fltKernel.h>
+#include "cppmemoryoperators.h"
 
 namespace WslFlt
 {
@@ -46,7 +47,7 @@ namespace WslFlt
         entry = InterlockedPopEntrySList(&_Head);
         if (!entry)
         {
-            return new T;
+            return ::operator new(sizeof(T), TypeTraits<T>::PoolType, TypeTraits<T>::Tag);
         } else
         {
             InterlockedDecrement(&_NumberOfFreeElements);
@@ -69,7 +70,7 @@ namespace WslFlt
             InterlockedPushEntrySList(&_Head, static_cast<PSLIST_ENTRY>(Object));
         } else
         {
-            delete static_cast<T *>(Object);
+            ::operator delete(Object, TypeTraits<T>::Tag);
         }
     }
 
@@ -82,7 +83,7 @@ namespace WslFlt
         PSLIST_ENTRY pEntry = InterlockedPopEntrySList(&_Head);
         while (pEntry)
         {
-            delete reinterpret_cast<T *>(pEntry);
+            ::operator delete(pEntry, TypeTraits<T>::Tag);
             pEntry = InterlockedPopEntrySList(&_Head);
         }
     }

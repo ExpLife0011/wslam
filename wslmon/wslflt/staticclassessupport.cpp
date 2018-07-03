@@ -84,6 +84,7 @@ CppCallDestructors()
         }
         __except (EXCEPTION_EXECUTE_HANDLER)
         {
+            NT_ASSERT(false);
         }
 
         ExFreePoolWithTag(pExitDescriptor, CPP_DESTRUCTOR_TAG);

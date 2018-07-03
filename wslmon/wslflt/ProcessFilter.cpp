@@ -2,6 +2,9 @@
 #include "DynamicFunctions.hpp"
 #include "FilterUtils.hpp"
 #include "wslflt_trace.h"
+#include "LookasideObject.hpp"
+#include "Process.hpp"
+#include "ProcessCollector.hpp"
 #include "ProcessFilter.cpp.tmh"
 
 using namespace WslFlt;
@@ -11,7 +14,7 @@ using namespace WslFlt;
 EXTERN_C
 static
 void PfpProcessCreatedCallback(
-    _In_ HANDLE ParentId,
+    _In_ PEPROCESS Process,
     _In_ HANDLE ProcessId,
     _Inout_opt_ PPS_CREATE_NOTIFY_INFO CreateInfo
 );
@@ -19,7 +22,7 @@ void PfpProcessCreatedCallback(
 static
 void
 PfpHandleProcessCreate(
-    _In_ HANDLE ParentId,
+    _In_ PEPROCESS Process,
     _In_ HANDLE ProcessId,
     _Inout_opt_ PPS_CREATE_NOTIFY_INFO CreateInfo
 );
@@ -27,7 +30,7 @@ PfpHandleProcessCreate(
 static
 void
 PfpHandleProcessTerminate(
-    _In_ HANDLE ParentId,
+    _In_ PEPROCESS Process,
     _In_ HANDLE ProcessId
 );
 
@@ -110,24 +113,27 @@ EXTERN_C
 static
 void
 PfpProcessCreatedCallback(
-    _In_ HANDLE ParentId,
+    _In_ PEPROCESS Process,
     _In_ HANDLE ProcessId,
     _Inout_opt_ PPS_CREATE_NOTIFY_INFO CreateInfo
 )
 {
     
-    if (!FilterUtils::IsLinuxSubsystemProcess(ProcessId))
+    if (FilterUtils::IsLinuxSubsystemProcess(ProcessId))
     {
-        return;
+        WslLogInfo("Filtered PICO PROCESS with PID 0x%p, EPROCESS 0x%p", ProcessId, Process);
     }
-    WslLogInfo("Filtered PICO PROCESS with PID 0x%p, PPID 0x%p", ProcessId, ParentId);
+    else
+    {
+        WslLogInfo("Filtered PROCESS with PID 0x%p, EPROCESS 0x%p", ProcessId, Process);
+    }
 
     if (CreateInfo)
     {
-        PfpHandleProcessCreate(ParentId, ProcessId, CreateInfo);
+        PfpHandleProcessCreate(Process, ProcessId, CreateInfo);
     } else
     {
-        PfpHandleProcessTerminate(ParentId, ProcessId);
+        PfpHandleProcessTerminate(Process, ProcessId);
     }
 }
 
@@ -136,34 +142,47 @@ _Use_decl_annotations_
 static
 void 
 PfpHandleProcessCreate(
-    _In_ HANDLE ParentId,
+    _In_ PEPROCESS Process,
     _In_ HANDLE ProcessId,
     _Inout_opt_ PPS_CREATE_NOTIFY_INFO CreateInfo
 )
 {
-    WSLSTATUS status = STATUS_UNSUCCESSFUL;
-    PFLT_FILE_NAME_INFORMATION pFileNameInformation = nullptr;
-
+    //PFLT_FILE_NAME_INFORMATION pFileNameInformation = nullptr;
+    HANDLE tokenHandle = nullptr;
+    bool tokenElevation = false;
     UNREFERENCED_PARAMETER(CreateInfo);
-    UNREFERENCED_PARAMETER(ParentId);
-    UNREFERENCED_PARAMETER(ProcessId);
+    //WslLogTrace("%wZ", &CreateInfo->FileObject->FileName);
+    //auto status = FltGetFileNameInformationUnsafe(
+    //    CreateInfo->FileObject,
+    //    nullptr,
+    //    FLT_FILE_NAME_NORMALIZED | FLT_FILE_NAME_QUERY_DEFAULT,
+    //    &pFileNameInformation
+    //);
+    //if (!WSL_SUCCESS(status))
+    //{
+    //    return;
+    //}
 
-    WslLogTrace("%wZ", &CreateInfo->FileObject->FileName);
-    status = FltGetFileNameInformationUnsafe(
-        CreateInfo->FileObject,
-        nullptr,
-        FLT_FILE_NAME_NORMALIZED | FLT_FILE_NAME_QUERY_DEFAULT,
-        &pFileNameInformation
-    );
+    //WslLogTrace("Normalized path %wZ", &pFileNameInformation->Name);
+
+    //FltReleaseFileNameInformation(pFileNameInformation);
+    //pFileNameInformation = nullptr;
+
+    auto status = FilterUtils::GetProcessToken(Process, TOKEN_READ, &tokenHandle);
     if (!WSL_SUCCESS(status))
     {
         return;
     }
 
-    WslLogTrace("Normalized path %wZ", &pFileNameInformation->Name);
+    status = FilterUtils::IsTokenElevated(tokenHandle, &tokenElevation);
+    if (!WSL_SUCCESS(status))
+    {
+        ::ZwClose(tokenHandle);
+        return;
+    }
 
-    FltReleaseFileNameInformation(pFileNameInformation);
-    pFileNameInformation = nullptr;
+
+    WslFlt::ProcessCollector::Instance().InsertProcess(ProcessId, tokenHandle, tokenElevation);
 }
 
 
@@ -171,11 +190,11 @@ _Use_decl_annotations_
 static
 void
 PfpHandleProcessTerminate(
-    _In_ HANDLE ParentId,
+    _In_ PEPROCESS Process,
     _In_ HANDLE ProcessId
 )
 {
-    UNREFERENCED_PARAMETER(ParentId);
+    UNREFERENCED_PARAMETER(Process);
     UNREFERENCED_PARAMETER(ProcessId);
 }
 

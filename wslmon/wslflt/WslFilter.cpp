@@ -5,6 +5,8 @@
 #include "ProcessFilter.hpp"
 #include "wslflt_trace.h"
 #include "WslFilter.cpp.tmh"
+#include "DynamicFunctions.hpp"
+
 
 __declspec(code_seg("PAGE")) 
 _Use_decl_annotations_
@@ -18,6 +20,8 @@ WslFlt::WslFilter::Initialize(
     bool registeredFilter = false;
     
     UNREFERENCED_PARAMETER(RegistryPath);
+
+    WslFlt::DynamicFunctions::Initialize();
     
     status = ::FltRegisterFilter(
         DriverObject,
@@ -59,6 +63,12 @@ CleanUp:
 
     return status;
 }
+
+#include "SharedPointer.hpp"
+class C
+{
+
+};
 
 __declspec(code_seg("PAGE"))
 _Use_decl_annotations_

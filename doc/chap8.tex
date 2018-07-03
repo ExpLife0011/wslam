@@ -5,7 +5,7 @@
     \section{Performance}
         There are multiple components that could be further optimized, for example, as of current implementation, the process collector is
         a doubly linked list, which is very inefficient for lookups (O(n) complexity). A more efficient implementation would be a resizable hash
-        table using quadratic or lilnear probing. Another example of a component that needs optimization is the dictionary used to match paths
+        table using quadratic or linear probing. Another example of a component that needs optimization is the dictionary used to match paths
         for which we recheck the security token. A better implementation would use a compressed trie and aho corrasick algorithm for matching
         the path.
 
@@ -20,16 +20,16 @@
 
         \paragraph{}
         Moreover, detection could be improved by integrating next-gen anti-virus features, like AI based detection. Multiple solutions are
-        possible and should be investigated, for example Markov Model and Markov Chains or Recurent Neural Networks. These could prove extremely
+        possible and should be investigated, for example Markov Model and Markov Chains or Recurrent Neural Networks. These could prove extremely
         efficient because most of the complexity is in the training of the model, while using the model in order to identify malicious actions
         would just follow a simple linear algorithm.
 
         \paragraph{}
         Finally, in order to more reliably and efficiently detect exploits in general, especially kernel exploits, memory introspection
-        techniques could be implemented at hypervisor level. ) Hypervisor perform virtualization without a host operating system between them
-        and physicalsystem hardware\cite{Bulazel}. The Xen hypervisor \cite{Barham} has been used in several surveyed analysis systems.
+        techniques could be implemented at hypervisor level. Hypervisor perform virtualization without a host operating system between them
+        and physical system hardware\cite{Bulazel}. The Xen hypervisor \cite{Barham} has been used in several surveyed analysis systems.
         
-        For example, privilege escalation could by detecting by hooking memory access at process security tokens and making use of Extended
+        For example, privilege escalation could be detected by hooking memory access on process security tokens and making use of Extended
         Page Tables (EPT).
         
     \section{Reverting malicious actions}
@@ -39,17 +39,17 @@
 
     \section{Network Filtering}
         A network filter kernel-mode driver is required in order to monitor and report suspicious network activity inside WSL. For example, such
-        a component could possibly detect reverse shell behavior.
+        a component could detect reverse shell behavior.
 
     \section{User-Mode Hooking Framework}
         In order to obtain more granular monitoring capabilities, a function hooking framework is required. The ability of synchronously monitoring
         specific API usage opens up a range of possibilities, from exploit detection to syscall graph based detection heuristics.
         In order to load a shared library into any Linux pico process, an entry with the path to the library must be added into the ld.so.conf. Since
-        any process with root privilleges (inside the linux system) can update the said config file, we must protect it from a kernel driver, so that
+        any process with root privileges (inside the Linux system) can update the said config file, we must protect it from a kernel driver, so that
         we are sure that our shared library isn't removed. This can be done by filtering IRP\textunderscore MJ\textunderscore WRITE operations on that
-        file and readding the entry if removed.
+        file and adding the entry again if removed.
         
-        When loaded in a linux process, the library hooks the functions we want to monitor (i.e. ptrace, open) and synchronously notifies a 
+        When loaded in a Linux process, the library hooks the functions we want to monitor (i.e. ptrace, open) and synchronously notifies a 
         service via local sockets about every hooked function call, informing the service about exploitation intent and failing the function call
         if needed.
 

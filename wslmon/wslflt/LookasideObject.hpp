@@ -2,9 +2,14 @@
 #define _LOOKASIDE_OBJECT_
 
 #include "LookasideList.hpp"
+#include "TypeTraits.hpp"
 
 namespace WslFlt
 {
+
+    /*
+    Lookaside<Clasa> ----|> Clasa
+    */
 
     template <typename T>
     class LookasideObject
@@ -18,16 +23,16 @@ namespace WslFlt
         {}
 
         FORCEINLINE
-            void*
-            operator new(size_t)
+        void*
+        operator new(size_t)
         {
             return _List.Allocate();
         }
 
         void
-            operator delete(
-                _In_ _Pre_notnull_ void *Location
-                )
+        operator delete(
+            _In_ _Pre_notnull_ void *Location
+        )
         {
             _List.Free(Location);
         }
@@ -38,7 +43,7 @@ namespace WslFlt
 
     template <typename T>
     WslFlt::LookasideList<T> WslFlt::LookasideObject<T>::_List(
-        T::NumberOfCachableElements
+        WslFlt::TypeTraits<T>::NumberOfCachableElements
     );
 }
 

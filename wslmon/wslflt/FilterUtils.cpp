@@ -82,8 +82,106 @@ WslFlt::FilterUtils::IsLinuxSubsystemProcess(
     isLinuxSubsystemProcess = true;
 
 CleanUp:
-    ::ZwClose(processHandle);
+    if (processHandle)
+    {
+        ::ZwClose(processHandle);
+    }
 
     return isLinuxSubsystemProcess;
 }
+
+_Use_decl_annotations_
+WSLSTATUS
+WslFlt::FilterUtils::GetProcessToken(
+    _In_ PEPROCESS Process,
+    _In_ ACCESS_MASK DesiredAccess,
+    _Outptr_result_nullonfailure_ HANDLE *Token
+)
+{
+    HANDLE processHandle = nullptr;
+
+    *Token = nullptr;
+
+    auto status = ::ObOpenObjectByPointer(Process, OBJ_KERNEL_HANDLE, nullptr, 0, nullptr, KernelMode, &processHandle);
+    if (!WSL_SUCCESS(status))
+    {
+        return status;
+    }
+
+    status = GetProcessToken(processHandle, DesiredAccess, Token);
+    ::ZwClose(processHandle);
+    return status;
+}
+
+_Use_decl_annotations_
+WSLSTATUS
+WslFlt::FilterUtils::GetProcessToken(
+    _In_ HANDLE Process,
+    _In_ ACCESS_MASK DesiredAccess,
+    _Outptr_result_nullonfailure_ HANDLE *Token
+)
+{
+    HANDLE tokenHandle = nullptr;
+    
+    auto status = ::ZwOpenProcessTokenEx(Process, DesiredAccess, OBJ_KERNEL_HANDLE, &tokenHandle);
+    *Token = tokenHandle;
+    return status;
+}
+
+_Use_decl_annotations_
+WSLSTATUS
+WslFlt::FilterUtils::IsTokenElevated(
+    _In_ HANDLE Token,
+    _Out_ bool *Elevation
+)
+{
+    TOKEN_ELEVATION elevation = { 0 };
+    ULONG returnLength = 0;
+
+    *Elevation = false;
+
+    auto status = ::ZwQueryInformationToken(Token, TokenElevation, &elevation, sizeof(elevation), &returnLength);
+    *Elevation = elevation.TokenIsElevated;
+    return status;
+}
+
+_Use_decl_annotations_
+WSLSTATUS
+WslFlt::FilterUtils::TerminateProcess(
+    _In_ HANDLE ProcessId
+)
+{
+    HANDLE processHandle = nullptr;
+    
+    auto status = OpenProcessByPid(ProcessId, &processHandle);
+    if (!WSL_SUCCESS(status))
+    {
+        return status;
+    }
+
+    status = ::ZwTerminateProcess(processHandle, STATUS_ACCESS_DENIED);
+    ZwClose(processHandle);
+    return status;
+}
+
+//_Use_decl_annotations_
+//WSLSTATUS
+//WslFlt::FilterUtils::GetProcessElevation(
+//    _In_ PEPROCESS Process,
+//    _Out_ bool* IsElevated
+//)
+//{
+//    HANDLE tokenHandle = nullptr;
+//
+//    auto status = GetProcessToken(Process, TOKEN_READ, &tokenHandle);
+//    if (!WSL_SUCCESS(status))
+//    {
+//        return status;
+//    }
+//
+//    status = IsTokenElevated(tokenHandle, IsElevated);
+//    ::ZwClose()
+//    return status;
+//}
+
 

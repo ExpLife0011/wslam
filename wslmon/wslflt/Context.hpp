@@ -136,6 +136,14 @@ namespace WslFlt
         ULONG Requestor;
         WslFileContexts* Contexts;
     };
+
+    template <>
+    struct TypeTraits<WslCompletionContext>
+    {
+        static constexpr ULONG Tag = WSLFLT_TAG_CCX;
+        static constexpr POOL_TYPE PoolType = PagedPool;
+        static constexpr LONG NumberOfCachableElements = DEFAULT_NUMBER_OF_CACHABLE_ELEMENTS;
+    };
 }
    
 

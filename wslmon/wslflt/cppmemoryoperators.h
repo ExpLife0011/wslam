@@ -9,6 +9,13 @@ typedef unsigned __int64 size_t;
 typedef unsigned int size_t;
 #endif //AMD64
 
+void *
+__cdecl
+operator new(
+    size_t Size,
+    void* Location
+);
+
 _Must_inspect_result_
 __drv_allocatesMem(Mem)
 void*
@@ -25,5 +32,13 @@ operator delete(
     _Pre_notnull_ __drv_freesMem(Mem) void* Address,
     _In_ _Const_ const ULONG Tag
 );
+
+void
+__cdecl
+operator delete(
+    _Pre_notnull_ __drv_freesMem(Mem) void* Address,
+    _In_ size_t Size,
+    _In_ _Const_ const ULONG Tag
+    );
 #endif // !_CPPMEMORYOPERATORS_H_
 

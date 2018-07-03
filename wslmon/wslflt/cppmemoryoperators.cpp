@@ -23,9 +23,6 @@ operator new(
     _In_ _Const_ const ULONG Tag
 )
 {
-#ifdef DEBUG
-    NT_ASSERTMS("OVERRIDE THIS!!!!", false);
-#endif // DEBUG
 #pragma warning(suppress:28160)
     return ::ExAllocatePoolWithTag(PoolType, Size, Tag);
 }
@@ -51,6 +48,7 @@ operator new(
     _In_ size_t Size
 )
 {
+    __debugbreak();
     return ::operator new(Size, PagedPool, CPP_GLOBAL_NEW_OPERATOR_TAG);
 }
 
@@ -63,6 +61,7 @@ operator delete(
 #ifdef DEBUG
     NT_ASSERTMS("OVERRIDE THIS!!!!", false);
 #endif // DEBUG
+    __debugbreak();
     ::operator delete(Address, (ULONG) CPP_GLOBAL_NEW_OPERATOR_TAG);
 }
 
@@ -74,6 +73,7 @@ operator delete(
 )
 {
     UNREFERENCED_PARAMETER(Size);
+    __debugbreak();
     ::operator delete(Address, (ULONG)CPP_GLOBAL_NEW_OPERATOR_TAG);
 }
 
@@ -87,6 +87,7 @@ operator new[](
 #ifdef DEBUG
     NT_ASSERTMS("OVERRIDE THIS!!!!", false);
 #endif // DEBUG
+    __debugbreak();
     return ::operator new(Size, PagedPool, CPP_GLOBAL_NEW_OPERATOR_TAG);
 }
 
@@ -99,5 +100,19 @@ operator delete[](
 #ifdef DEBUG
     NT_ASSERTMS("OVERRIDE THIS!!!!", false);
 #endif // DEBUG
+    __debugbreak();
     ::operator delete(Address, (ULONG)CPP_GLOBAL_NEW_OPERATOR_TAG);
+}
+
+
+void
+__cdecl
+operator delete(
+    _Pre_notnull_ __drv_freesMem(Mem) void* Address,
+    _In_ size_t Size,
+    _In_ _Const_ const ULONG Tag
+)
+{
+    UNREFERENCED_PARAMETER(Size);
+    ::operator delete(Address, Tag);
 }

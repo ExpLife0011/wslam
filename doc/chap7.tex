@@ -6,7 +6,7 @@
     \section{Privilege Escalation Detection}
         Privilege escalation is a type of exploit that elevates a running process or starts an elevated process while bypassing operating system's
         security or user notification mechanisms (eg. User Account Control on Windows). In order to correctly identify the exploit it is essential
-        to understand how elevation works on Windows. In this section I am going to go into detial about how windows elevation works and the
+        to understand how elevation works on Windows. In this section I am going to go into detail about how Windows elevation works and the
         algorithm I used in order to detect it.
 
         \paragraph{}
@@ -38,25 +38,24 @@
         \end{verbatim}
 
         \paragraph{}
-        If a process is already is elevated, any process spawned by it will also be elevated by default. We can easily see that, if wsl.exe is started with admin rights, all linux
-        processes running in that WSL instance will be granted admin rights inside Windows, which would be disastrous considering the security
-        of the computer.
+        If a process is already elevated, any process created by it will also be elevated by default. We can easily see that, if wsl.exe is
+        started with admin rights, all Linux processes running in that WSL instance will be granted admin rights inside Windows, which would
+        be disastrous considering the security of the computer.
 
         \paragraph{}
-        An easy, yet not completly reliable method for detecting this type of exploit can be implemented in a kernel driver. A more reliable
+        An easy, yet not completely reliable method for detecting this type of exploit can be implemented in a kernel driver. A more reliable
         method would be using hypervisor memory introspection techniques, but I will only cover the first.
 
         \paragraph{}
         I'm going to describe the most basic way of detecting privilege escalation, which is, detecting if a process was maliciously started
         with admin rights. As I've previously mentioned, a process can start with admin rights if and only if its parent is elevated or it was started
         by a svchost. In order to do this, we need check whether or not the process is elevated in the process create callback. Below is a summary
-        implementaion for a function that takes a process handle and returns its current elevation status.
+        implementation for a function that takes a process handle and returns its current elevation status.
 
         \begin{Verbatim}[fontsize=\small, commandchars=\\\{\}]
 ZwOpenProcessTokenEx(\textcolor{darkgray}{processHandle}, \textcolor{magenta}{GENERIC_READ}, \textcolor{magenta}{OBJ_KERNEL_HANDLE}, &token);
 ZwQueryInformationToken(token, \textcolor{Apricot}{TokenElevation}, &tokenElevation,
                         \textcolor{blue}{sizeof}(tokenElevation), &returnLength);
-                        
 \textcolor{blue}{return} tokenElevation.TokenIsElevated;
         \end{Verbatim}
 
@@ -90,7 +89,7 @@ ZwQueryInformationToken(token, \textcolor{Apricot}{TokenElevation}, &tokenElevat
         \begin{figure}[!ht]
             \centering
             \includegraphics[width=310px,keepaspectratio]{img/privilege_escalation_detection_diagram.png}
-            \caption{privillege escalation detection diagram}
+            \caption{privilege escalation detection diagram}
             \label{fig:privilege_escalation_detection_diagram}
         \end{figure}
 
@@ -114,14 +113,14 @@ ZwQueryInformationToken(token, \textcolor{Apricot}{TokenElevation}, &tokenElevat
         use them. Droppers however would write malicious executables on disk and are commonly disguised as installers or application bundles.
 
         \paragraph{}
-        These are relatively simple to detect, as linux processes would have no reason to create or modify windows executables. The more
-        complicated case is when a linux process starts a windows process to carry out the potentially malicious actions on behalf of the linux
-        process. Untill now, there haven't been observed any WSL applications interact with windows processes it is still not clear how to
-        classify this behavior. For now, untill the market evolves, the safer decision would be to treat windows processes that are in a
-        linux process tree (there is at least a linux process ancestor) same as linux processes. This means that whether the linux process
-        drops an executable or starts a windows process to drop it, both cases would cause a detection that kills the whole tree (up to the
-        last linux process).
+        These are relatively simple to detect, as Linux processes would have no reason to create or modify Windows executables. The more
+        complicated case is when a Linux process starts a Windows process to carry out the potentially malicious actions on behalf of the Linux
+        process. Until now, there haven't been observed any WSL applications interact with Windows processes it is still not clear how to
+        classify this behavior. For now, until the market evolves, the safer decision would be to treat Windows processes that are in a
+        Linux process tree (there is at least a Linux process ancestor) same as Linux processes. This means that whether the Linux process
+        drops an executable or starts a Windows process to drop it, both cases would cause a detection that kills the whole tree (up to the
+        last Linux process).
 
         \paragraph{}
-        The relevant action a file infector does writing in windows executable files, which actually is a
+        The relevant action a file infector does writing in Windows executable files, which actually is a
         IRP\textunderscore MJ\textunderscore WRITE operation in terms of file system filtering.

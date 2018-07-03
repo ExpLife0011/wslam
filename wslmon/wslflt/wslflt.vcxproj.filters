@@ -104,6 +104,12 @@
     <ClCompile Include="Refcounter.cpp">
       <Filter>Source Files\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="Process.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessCollector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cppmemoryoperators.h">
@@ -162,6 +168,15 @@
     </ClInclude>
     <ClInclude Include="Refcounter.hpp">
       <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Process.hpp">
+      <Filter>Header Files\Filters\ProcessFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessCollector.hpp">
+      <Filter>Header Files\Filters\ProcessFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
