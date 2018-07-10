@@ -1,7 +1,12 @@
-    #include <Windows.h>
+
+#define WIN32_NO_STATUS
+#include <Windows.h>
+#undef WIN32_NO_STATUS
 #include "wslcore_trace.h"
 #include "coremain.cpp.tmh"
 #include "TestHeader.hpp"
+#include "FilterPort.hpp"
+//#include "DriverComm.hpp"
 
 BOOLEAN
 WINAPI

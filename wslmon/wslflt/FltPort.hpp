@@ -2,9 +2,6 @@
 #define _FLT_PORT_HPP_
 
 #include <fltKernel.h>
-#include "FltPortClient.hpp"
-#include "UniquePointer.hpp"
-#include "NonPagedObject.hpp"
 #include "State.hpp"
 
 namespace WslFlt
@@ -44,10 +41,10 @@ namespace WslFlt
 
 
     class FltPort
-        : public NonPagedObject<'PCF!'>
     {
     public:
-        FltPort(
+        void
+        Connect(
             _In_ _Const_ LPCWSTR PortName,
             _In_ PFLT_FILTER Filter,
             _In_ LONG NumberOfConnections
@@ -70,6 +67,11 @@ namespace WslFlt
             _Out_writes_bytes_to_opt_(OutputBufferLength, *ReturnOutputBufferLength) PVOID OutputBuffer,
             _In_ ULONG OutputBufferLength,
             _Out_ PULONG ReturnOutputBufferLength
+        );
+
+        void
+        SendDetection(
+            PUNICODE_STRING Name
         );
 
         ~FltPort();

@@ -4,6 +4,7 @@
 #include <fltKernel.h>
 #include "Context.hpp"
 #include "LookasideObject.hpp"
+#include "FltPort.hpp"
 
 
 namespace WslFlt
@@ -73,6 +74,7 @@ namespace WslFlt
             _In_ FLT_POST_OPERATION_FLAGS Flags
         );
 
+        static FltPort _Port;
     private:
         static
         _Must_inspect_result_

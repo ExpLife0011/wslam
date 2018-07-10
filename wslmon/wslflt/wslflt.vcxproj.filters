@@ -110,6 +110,9 @@
     <ClCompile Include="ProcessCollector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FltPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cppmemoryoperators.h">
@@ -176,6 +179,15 @@
       <Filter>Header Files\Filters\ProcessFilter</Filter>
     </ClInclude>
     <ClInclude Include="LinkedList.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FltPort.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="State.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Messages.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

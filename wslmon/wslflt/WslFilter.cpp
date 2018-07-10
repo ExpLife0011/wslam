@@ -18,11 +18,11 @@ WslFlt::WslFilter::Initialize(
 {
     WSLSTATUS status = STATUS_UNSUCCESSFUL;
     bool registeredFilter = false;
-    
+
     UNREFERENCED_PARAMETER(RegistryPath);
 
     WslFlt::DynamicFunctions::Initialize();
-    
+
     status = ::FltRegisterFilter(
         DriverObject,
         &WslFlt::FilterRegistration,
@@ -42,11 +42,14 @@ WslFlt::WslFilter::Initialize(
         goto CleanUp;
     }
 
+    FileFilter::_Port.Connect(L"\\WslFlt", _Filter, 1);
+
     status = ::FltStartFiltering(_Filter);
     if (!WSL_SUCCESS(status))
     {
         goto CleanUp;
     }
+
 
     _DriverObject = DriverObject;
 

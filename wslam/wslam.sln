@@ -12,12 +12,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WslAntiMalwareCore", "WslAntiMalwareCore\WslAntiMalwareCore.csproj", "{0D2F2714-E447-416D-81EC-81EFF471BB05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WslAntiMalwareSystemService", "WslAntiMalwareSystemService\WslAntiMalwareSystemService.csproj", "{A5C2F707-E2CB-4859-8668-E9AC29AD35E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6} = {A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uwpcomm", "uwpcomm\uwpcomm.vcxproj", "{98F2F06F-C614-4FD2-82B5-A3FDD2721D63}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WSLSystemServiceCommunicationCore", "WSLSystemServiceCommunicationCore\WSLSystemServiceCommunicationCore.vcxproj", "{141DA236-1A6F-412D-92D3-F3A67B5BE2EC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{D7E22002-E844-4184-94B5-590E7851AB50}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WslSystemServiceCommunicationCore", "WslSystemServiceCommunicationCore\WslSystemServiceCommunicationCore.vcxproj", "{141DA236-1A6F-412D-92D3-F3A67B5BE2EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WslCoreWrapper", "WslCoreWrapper\WslCoreWrapper.vcxproj", "{965D1821-C0A7-4C49-A895-9DE28689E976}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wslcore", "..\wslmon\wslcore\wslcore.vcxproj", "{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +130,30 @@ Global
 		{141DA236-1A6F-412D-92D3-F3A67B5BE2EC}.Release|x64.Build.0 = Release|x64
 		{141DA236-1A6F-412D-92D3-F3A67B5BE2EC}.Release|x86.ActiveCfg = Release|Win32
 		{141DA236-1A6F-412D-92D3-F3A67B5BE2EC}.Release|x86.Build.0 = Release|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Debug|ARM.ActiveCfg = Debug|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Debug|x64.ActiveCfg = Debug|x64
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Debug|x64.Build.0 = Debug|x64
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Debug|x86.ActiveCfg = Debug|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Debug|x86.Build.0 = Debug|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Release|Any CPU.ActiveCfg = Release|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Release|ARM.ActiveCfg = Release|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Release|x64.ActiveCfg = Release|x64
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Release|x64.Build.0 = Release|x64
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Release|x86.ActiveCfg = Release|Win32
+		{965D1821-C0A7-4C49-A895-9DE28689E976}.Release|x86.Build.0 = Release|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Debug|ARM.ActiveCfg = Debug|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Debug|x64.ActiveCfg = Debug|x64
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Debug|x64.Build.0 = Debug|x64
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Debug|x86.ActiveCfg = Debug|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Debug|x86.Build.0 = Debug|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Release|Any CPU.ActiveCfg = Release|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Release|ARM.ActiveCfg = Release|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Release|x64.ActiveCfg = Release|x64
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Release|x64.Build.0 = Release|x64
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Release|x86.ActiveCfg = Release|Win32
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +165,8 @@ Global
 		{A5C2F707-E2CB-4859-8668-E9AC29AD35E7} = {D7E22002-E844-4184-94B5-590E7851AB50}
 		{98F2F06F-C614-4FD2-82B5-A3FDD2721D63} = {D7E22002-E844-4184-94B5-590E7851AB50}
 		{141DA236-1A6F-412D-92D3-F3A67B5BE2EC} = {D7E22002-E844-4184-94B5-590E7851AB50}
+		{965D1821-C0A7-4C49-A895-9DE28689E976} = {D7E22002-E844-4184-94B5-590E7851AB50}
+		{A43A0862-0DA4-45AA-9597-ADBCC7BB65C6} = {D7E22002-E844-4184-94B5-590E7851AB50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74B4D087-91EF-4C48-BCF6-628765D12547}

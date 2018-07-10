@@ -308,6 +308,7 @@
     <ClCompile Include="DynamicFunctions.cpp" />
     <ClCompile Include="FileFilter.cpp" />
     <ClCompile Include="FilterUtils.cpp" />
+    <ClCompile Include="FltPort.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="ProcessCollector.cpp" />
     <ClCompile Include="ProcessFilter.cpp" />
@@ -327,15 +328,18 @@
     <ClInclude Include="FilterRegistration.hpp" />
     <ClInclude Include="FilterTags.hpp" />
     <ClInclude Include="FilterUtils.hpp" />
+    <ClInclude Include="FltPort.hpp" />
     <ClInclude Include="kernelinc.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="LookasideList.hpp" />
     <ClInclude Include="LookasideObject.hpp" />
+    <ClInclude Include="Messages.hpp" />
     <ClInclude Include="Process.hpp" />
     <ClInclude Include="ProcessCollector.hpp" />
     <ClInclude Include="ProcessFilter.hpp" />
     <ClInclude Include="Refcounter.hpp" />
     <ClInclude Include="SharedPointer.hpp" />
+    <ClInclude Include="State.hpp" />
     <ClInclude Include="staticclassessupport.h" />
     <ClInclude Include="TypeTraits.hpp" />
     <ClInclude Include="WslFilter.hpp" />

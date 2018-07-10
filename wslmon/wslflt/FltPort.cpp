@@ -1,7 +1,7 @@
 #include "Messages.hpp"
 #include "FltPort.hpp"
 #include "wslflt_trace.h"
-#include "FltPort.tmh"
+#include "FltPort.cpp.tmh"
 
 using namespace WslFlt;
 
@@ -37,17 +37,21 @@ WslFlt::FltPortClient::~FltPortClient()
 
 
 _Use_decl_annotations_
-FltPort::FltPort(
+void
+FltPort::Connect(
     _In_ _Const_ LPCWSTR PortName,
     _In_ PFLT_FILTER Filter,
     _In_ LONG NumberOfConnections
-) : _PortState{ stateUninitialized }, _Filter{ Filter }, _Port{ nullptr }, _FltPortClient{}, _IsValid{ false }
+)
 {
     NTSTATUS status = STATUS_UNSUCCESSFUL;
     OBJECT_ATTRIBUTES oa = { 0 };
     UNICODE_STRING ustrPortName = { 0 };
     PSECURITY_DESCRIPTOR sd = nullptr;
 
+    _Filter = Filter;
+    _Port = nullptr;
+    
     RtlInitUnicodeString(&ustrPortName, PortName);
 
     WslLogTrace("FltBuildDefaultSecurityDescriptor DesiredAccess=0x%X", FLT_PORT_ALL_ACCESS);
@@ -127,6 +131,16 @@ WslFlt::FltPort::Dispatch(
     }
 
     return STATUS_SUCCESS;
+}
+
+void
+WslFlt::FltPort::SendDetection(PUNICODE_STRING Name)
+{
+    if (!_FltPortClient._Port)
+    {
+        return;
+    }
+    ::FltSendMessage(_Filter, &_FltPortClient._Port, Name->Buffer, Name->Length, nullptr, 0, nullptr);
 }
 
 FltPort::~FltPort()

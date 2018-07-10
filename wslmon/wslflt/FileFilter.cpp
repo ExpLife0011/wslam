@@ -5,9 +5,11 @@
 #include "ProcessCollector.hpp"
 #include "FilterUtils.hpp"
 #include "FileFilter.cpp.tmh"
+#include "WslFilter.hpp"
 
 
 volatile LONG WslFlt::FileFilter::_State = (LONG)WslFlt::FileFilter::FileFilterState::started;
+WslFlt::FltPort WslFlt::FileFilter::_Port{};
 
 _Use_decl_annotations_
 FLT_PREOP_CALLBACK_STATUS
@@ -61,8 +63,58 @@ TerminateProcessWorker(
 )
 {
     PTERMINATE_PROCESS_CTX ctx = reinterpret_cast<PTERMINATE_PROCESS_CTX>(StartContext);
+    OBJECT_ATTRIBUTES objectAttribute = { 0 };
+    CLIENT_ID clientId = { 0 };
+    HANDLE processHandle = nullptr;
+    ULONG returnedLength = 0;
+    PUNICODE_STRING pFileName = { 0 };
+    UNICODE_STRING finalComponent = { 0 };
+
+    InitializeObjectAttributes(
+        &objectAttribute,
+        nullptr,
+        OBJ_KERNEL_HANDLE,
+        nullptr,
+        nullptr
+    );
+
+    clientId.UniqueProcess = ctx->ProcessId;
+    clientId.UniqueThread = 0;
+
+    ::ZwOpenProcess(
+        &processHandle,
+        PROCESS_ALL_ACCESS,
+        &objectAttribute,
+        &clientId
+    );
+
+    WslFlt::DynamicFunctions::ZwQueryProcessInformation(
+        processHandle,
+        ProcessImageFileName,
+        nullptr,
+        0,
+        &returnedLength
+    );
+
+    pFileName = reinterpret_cast<PUNICODE_STRING>(::ExAllocatePoolWithTag(NonPagedPoolNx, returnedLength, 'NFI@'));
+
+    WslFlt::DynamicFunctions::ZwQueryProcessInformation(
+        processHandle,
+        ProcessImageFileName,
+        pFileName,
+        returnedLength,
+        &returnedLength
+    );
+    ::ZwClose(processHandle);
+    
+
+    ::FltParseFileName(pFileName, nullptr, nullptr, &finalComponent);
+
     WslFlt::FilterUtils::TerminateProcess(ctx->ProcessId);
     KeSetEvent(&ctx->WaitEvent, 0, false);
+    WslFlt::FileFilter::_Port.SendDetection(&finalComponent);
+
+    ::ExFreePoolWithTag(pFileName, 'NFI@');
 }
 
 _Use_decl_annotations_
@@ -74,13 +126,9 @@ WslFlt::FileFilter::WslPostCreate(
     _In_ FLT_POST_OPERATION_FLAGS Flags
 )
 {
-    UNREFERENCED_PARAMETER(FltObjects);
-    UNREFERENCED_PARAMETER(Flags);
-
     LookasideObject<WslCompletionContext>* completionContext = (LookasideObject<WslCompletionContext>*)CompletionContext;
     FileContext *ctx = nullptr;
     WslFlt::SharedPointer<WslFlt::Process> proc;
-
     auto status = WslFlt::ProcessCollector::Instance().GetProcessByPid((HANDLE)FltGetRequestorProcessId(Data), proc);
     if (!WSL_SUCCESS(status))
     {

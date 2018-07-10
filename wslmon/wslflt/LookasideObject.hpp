@@ -7,10 +7,6 @@
 namespace WslFlt
 {
 
-    /*
-    Lookaside<Clasa> ----|> Clasa
-    */
-
     template <typename T>
     class LookasideObject
         : public T
